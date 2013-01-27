@@ -1,19 +1,19 @@
 class Book
   attr_reader :isbn
 
-  attr_accessor :id, 	    :title,      :sequel,
-                :sequel_id, :author,     :year_published,
+  attr_accessor :id, 	    :title,      :series,
+                :series_id, :author,     :year_published,
                 :publisher, :page_count, :genres,
                 :language,  :rent_period
 
-  def initialize(id, isbn, title, sequel, sequel_id, author, year_published,
+  def initialize(id, isbn, title, series, series_id, author, year_published,
 		publisher, page_count, genres, language, rent_period, can_take_home = true, is_free = true)
 
     raise InvalidISBN if not isbn.nil? and not is_valid_isbn13? isbn
 
-    @id, @isbn, @title, @sequel, @sequel_id, @author, @year_published, @publisher,
+    @id, @isbn, @title, @series, @series_id, @author, @year_published, @publisher,
     @page_count, @genres, @language, @can_take_home, @is_free, @rent_period = 
-    id, isbn, title, sequel, sequel_id, author, year_published, publisher,
+    id, isbn, title, series, series_id, author, year_published, publisher,
     page_count, genres, language, can_take_home, is_free, rent_period
   end
 

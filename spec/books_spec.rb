@@ -9,8 +9,8 @@ describe "Book" do
     clash_of_kings.id.should eq 1
     clash_of_kings.isbn.should eq "978-954-585-299-2"
     clash_of_kings.title.should eq "A Clash of Kings"
-    clash_of_kings.sequel.should eq "A Song of Fire and Ice"
-    clash_of_kings.sequel_id.should eq 2
+    clash_of_kings.series.should eq "A Song of Fire and Ice"
+    clash_of_kings.series_id.should eq 2
     clash_of_kings.author.should eq "George R.R. Martin"
     clash_of_kings.year_published.should eq 2001
     clash_of_kings.publisher.should eq "Bard"
@@ -26,8 +26,8 @@ describe "Book" do
     clash_of_kings.id =  2
     clash_of_kings.isbn = "978-0-5533-81696"
     clash_of_kings.title = "A Clash of Kingss"
-    clash_of_kings.sequel = "A Song of Fire and Icee"
-    clash_of_kings.sequel_id = 3
+    clash_of_kings.series = "A Song of Fire and Icee"
+    clash_of_kings.series_id = 3
     clash_of_kings.author = "George R.R. Martinn"
     clash_of_kings.year_published = 2002
     clash_of_kings.publisher = "Bardd"
@@ -39,8 +39,8 @@ describe "Book" do
     clash_of_kings.id.should eq 2
     clash_of_kings.isbn.should eq "978-0-5533-81696"
     clash_of_kings.title.should eq "A Clash of Kingss"
-    clash_of_kings.sequel.should eq "A Song of Fire and Icee"
-    clash_of_kings.sequel_id.should eq 3
+    clash_of_kings.series.should eq "A Song of Fire and Icee"
+    clash_of_kings.series_id.should eq 3
     clash_of_kings.author.should eq "George R.R. Martinn"
     clash_of_kings.year_published.should eq 2002
     clash_of_kings.publisher.should eq "Bardd"
