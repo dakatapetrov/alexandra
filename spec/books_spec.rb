@@ -2,8 +2,12 @@ require 'rspec'
 require './lib/book'
 
 describe "Book" do
-  let(:clash_of_kings) { Book.new(1, "978-954-585-299-2", "A Clash of Kings", "A Song of Fire and Ice", 2, "George R.R. Martin", 2001, "Bard", 729,
-    ["Fantasy", "Novels"], "Bulgarian", 31) }
+  let(:clash_of_kings) do
+    Book.new 1, "978-954-585-299-2", "A Clash of Kings",
+      "A Song of Fire and Ice", 2, "George R.R. Martin",
+      2001, "Bard", 729,
+      ["Fantasy", "Novels"], "Bulgarian", 31
+    end
 
   it "can return basic info" do
     clash_of_kings.id.should eq 1
@@ -53,7 +57,7 @@ describe "Book" do
   end
 
   it "can raise error on wrong ISBN" do
-    expect{ clash_of_kings.isbn = "978-954-585-299-3" }.to raise_error(ArgumentError)
+    expect{ clash_of_kings.isbn = "978-954-585-299-3" }.to raise_error(Book::InvalidISBN)
   end
 
   it "can have a nil value for isbn" do
