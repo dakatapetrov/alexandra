@@ -74,19 +74,23 @@ class Criteria
   end
 
   def self.title(title)
-    Criteria.new { |book| book.title == title }
+    Criteria.new { |book| book.title.downcase.include? title.downcase }
   end
 
   def self.series(series)
-    Criteria.new { |book| book.series == series }
+    Criteria.new { |book| book.series.to_s.downcase.include? series.downcase }
   end
 
   def self.author(author)
-    Criteria.new { |book| book.author == author }
+    Criteria.new { |book| book.author.downcase.include? author.downcase }
   end
 
   def self.isbn(isbn)
-    Criteria.new { |book| book.isbn == isbn }
+    Criteria.new { |book| book.isbn.to_s.downcase.include? isbn.downcase }
+  end
+
+  def self.any(string)
+    self.title(string) | self.series(string) | self.author(string) | self.isbn(string)
   end
 
   def |(other)

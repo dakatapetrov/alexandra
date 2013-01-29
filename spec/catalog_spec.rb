@@ -151,6 +151,34 @@ describe "Catalog" do
     filtered.map(&:title).should =~ ["A Clash of Kings"]
   end
 
+  it "can be filtered by substring" do
+    filtered = catalog.filter Criteria.author("ivan")
+    filtered.map(&:title).should =~ ["Pod Igoto"]
+
+    filtered = catalog.filter Criteria.title("sword")
+    filtered.map(&:title).should =~ ["A Storm of Swords"]
+
+    filtered = catalog.filter Criteria.series("fire")
+    filtered.map(&:title).should =~ ["A Clash of Kings", "A Storm of Swords", "A Game of Thrones"]
+
+    filtered = catalog.filter Criteria.isbn("978-0-2016")
+    filtered.map(&:title).should =~ ["The Pragmatic Programmer: From Journeyman to Master"]
+  end
+
+  it "can be filtered by any criteria" do
+    filtered = catalog.filter Criteria.any("ivan")
+    filtered.map(&:title).should =~ ["Pod Igoto"]
+
+    filtered = catalog.filter Criteria.any("sword")
+    filtered.map(&:title).should =~ ["A Storm of Swords"]
+
+    filtered = catalog.filter Criteria.any("fire")
+    filtered.map(&:title).should =~ ["A Clash of Kings", "A Storm of Swords", "A Game of Thrones"]
+
+    filtered = catalog.filter Criteria.any("978-0-2016")
+    filtered.map(&:title).should =~ ["The Pragmatic Programmer: From Journeyman to Master"]
+  end
+
   it "can add book to colection" do
     catalog.add Book.new 8, "978-0-4512-05768", "The Godfather",
       "Mario Puzo's Mafia", nil, "Mario Puzo",
