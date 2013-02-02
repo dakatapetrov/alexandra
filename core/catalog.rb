@@ -19,7 +19,7 @@ class Catalog
     @books << book
   end
 
-  def edit(id)
+  def get(id)
     @books.select { |book| book.id == id }.first
   end
 

@@ -205,17 +205,10 @@ describe "Catalog" do
     end.to raise_error(Catalog::BookIDExists)
   end
 
-  it "can edit book in catalog" do
-    catalog.edit(7).genres = ["Novels", "Bulgarian"]
+  it "can get book by id in catalog" do
+    book = catalog.get(7)
 
-    catalog.genres.should =~ [
-      "Fantasy",
-      "Novels",
-      "IT",
-      "Gothic",
-      "Horror",
-      "Bulgarian"
-    ]
+    book.title.should eq "Pod Igoto"
   end
 
   it "can delete book from catalog" do
