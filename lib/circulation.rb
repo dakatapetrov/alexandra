@@ -11,7 +11,7 @@ class Extension
 end
 
 class Loan
-  attr_reader :book_id, :from_date, :to_date, :extensions
+  attr_reader :book_id, :from_date, :to_date, :extensions, :date_returned
 
   def initialize(book)
     @book_id    = book.id
@@ -37,8 +37,9 @@ class Loan
 
   def return
     @returned = true
-    if Date.today - @to_date <= 0 then 0
-    else (Date.today - @to_date).to_i
+    @date_returned = Date.today
+    if @date_returned - @to_date <= 0 then 0
+    else (@date_returned - @to_date).to_i
     end
   end
 
@@ -50,10 +51,10 @@ class Loan
 end
 
 class Member
-  attr_reader :username, :email, :loans
+  attr_reader :id, :username, :email, :loans
 
-  def initialize(username, email, password)
-    @username, @email= username, email
+  def initialize(id, username, email, password)
+    @id, @username, @email = id, username, email
     @password = BCrypt::Password.create(password)
     @email_confirmed = false
     @loans = []
@@ -67,7 +68,7 @@ class Member
     @email_confirmed = true
   end
 
-  def change_email(email)
+  def email=(email)
     @email = email
     @email_confirmed = false
   end
@@ -76,7 +77,7 @@ class Member
     @password == password
   end
 
-  def change_password(password)
+  def password=(password)
     @password = BCrypt::Password.create(password)
   end
 
@@ -84,8 +85,8 @@ class Member
     @loans << Loan.new(book)
   end
 
-  def return_book(book)
-    @loans.select { |loan| loan.book_id == book.id }.first.return
+  def return(book)
+    @loans.select { |loan| loan.book_id == book.id and not loan.returned? }.first.return
   end
 
   def returned_loans
@@ -94,5 +95,39 @@ class Member
 
   def unreturned_loans
     @loans.select { |loan| not loan.returned? }
+  end
+end
+
+class Members
+  include Enumerable
+
+  def initialize(members_list = [])
+    @members_list = members_list
+  end
+
+  def each(&block)
+    @members_list.each(&block)
+  end
+
+  def usernames
+    list :username
+  end
+
+  def emails
+    list :email
+  end
+
+  def add(member)
+    @members_list << member
+  end
+
+  def remove(member_id)
+    @members_list.delete_if { |member| member_id == member.id }
+  end
+
+  private
+
+  def list(attribute)
+    @members_list.map(&attribute)
   end
 end

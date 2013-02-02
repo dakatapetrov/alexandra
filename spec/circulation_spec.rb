@@ -25,6 +25,7 @@ describe "Loans" do
     loan.to_date.should eq (Date.today + 31)
     loan.book_id.should eq 2
     loan.returned?.should eq false
+    loan.date_returned.should eq nil
   end
 
   it "can extend loan period by given amound of days" do
@@ -54,6 +55,7 @@ describe "Loans" do
   it "can return a book" do
     loan.return.should eq 0
     loan.returned?.should eq true
+    loan.date_returned.should eq Date.today
   end
 end
 
@@ -72,7 +74,7 @@ describe "Member" do
       ["Fantasy", "Novels"], "Bulgarian", 31
   end
 
-  let (:member) { Member.new "testuser", "testuser@testhost.com", "123456" }
+  let (:member) { Member.new 0, "testuser", "testuser@testhost.com", "123456" }
 
   def compare_loans(loan, book_id, from_date, to_date)
     loan.book_id.should eq book_id
@@ -81,12 +83,13 @@ describe "Member" do
   end
 
   it "can get member info" do
+    member.id.should eq 0
     member.username.should eq "testuser"
     member.email.should eq "testuser@testhost.com"
     member.email_confirmed?.should eq false
   end
 
-  it "can onfirm e-mail" do
+  it "can confirm e-mail" do
     member.confirm_email
 
     member.email_confirmed?.should eq true
@@ -98,14 +101,14 @@ describe "Member" do
   end
 
   it "can change user password" do
-    member.change_password "password"
+    member.password = "password"
 
     member.password?("123456").should eq false
     member.password?("password").should eq true
   end
 
   it "can change user e-mail address" do
-    member.change_email "someone@example.com"
+    member.email = "someone@example.com"
 
     member.email.should eq "someone@example.com"
     member.email_confirmed?.should eq false
@@ -123,7 +126,7 @@ describe "Member" do
     member.take game_of_thrones
     member.take storm_of_swords
 
-    member.return_book game_of_thrones
+    member.return game_of_thrones
 
     compare_loans member.returned_loans.first, 2, Date.today, Date.today + 31
   end
@@ -132,8 +135,62 @@ describe "Member" do
     member.take game_of_thrones
     member.take storm_of_swords
 
-    member.return_book game_of_thrones
+    member.return game_of_thrones
 
     compare_loans member.unreturned_loans.first, 3, Date.today, Date.today + 31
+  end
+end
+
+describe "Members" do
+  let (:members) do
+    Members.new [
+      Member.new(1, "member", "member@member.com", "123456"),
+      Member.new(2, "someone", "someone@example.com", "321123"),
+      Member.new(3, "noone", "unknown@somewhere.ddz", "asdasd"),
+    ]
+  end
+
+  it "can list all usernames" do
+    members.usernames.should eq [
+      "member",
+      "someone",
+      "noone",
+    ]
+  end
+
+  it "can list all emails" do
+    members.emails.should eq [
+      "member@member.com",
+      "someone@example.com",
+      "unknown@somewhere.ddz",
+    ]
+  end
+
+  it "is enumerable" do
+    members.map(&:username).should eq [
+      "member",
+      "someone",
+      "noone",
+    ]
+  end
+
+  it "can add member" do
+    members.add Member.new 4, "rootoor", "root@admin.com", "passwd"
+
+    members.usernames.should eq [
+      "member",
+      "someone",
+      "noone",
+      "rootoor",
+    ]
+  end
+
+  it "can remove member" do
+    members.remove 3
+
+    members.usernames.should eq [
+      "member",
+      "someone",
+    ]
   end
 end
