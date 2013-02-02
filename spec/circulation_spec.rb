@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/circulation'
+require './core/circulation'
 
 describe "Extension" do
   let (:extension) { Extension.new(Date.today, Date.today + 3) }

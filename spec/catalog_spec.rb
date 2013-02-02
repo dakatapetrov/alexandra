@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/catalog.rb'
+require './core/catalog.rb'
 
 describe "Catalog" do
   let(:clash_of_kings) do

@@ -1,4 +1,4 @@
-require './lib/book'
+require './core/book'
 
 class Catalog
   include Enumerable

@@ -1,6 +1,6 @@
 require 'date'
 require 'bcrypt'
-require './lib/catalog'
+require './core/catalog'
 
 class Extension
   attr_reader :from_date, :to_date

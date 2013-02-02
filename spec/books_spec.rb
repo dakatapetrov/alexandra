@@ -1,5 +1,5 @@
 require 'rspec'
-require './lib/book'
+require './core/book'
 
 describe "Book" do
   let(:clash_of_kings) do
