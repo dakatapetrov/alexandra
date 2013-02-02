@@ -73,24 +73,26 @@ class Criteria
     @matcher.call book 
   end
 
-  def self.title(title)
-    Criteria.new { |book| book.title.downcase.include? title.downcase }
-  end
+  class << self
+    def title(string)
+      Criteria.new { |book| book.title.downcase.include? string.downcase }
+    end
 
-  def self.series(series)
-    Criteria.new { |book| book.series.to_s.downcase.include? series.downcase }
-  end
+    def series(string)
+      Criteria.new { |book| book.series.to_s.downcase.include? string.downcase }
+    end
 
-  def self.author(author)
-    Criteria.new { |book| book.author.downcase.include? author.downcase }
-  end
+    def author(string)
+      Criteria.new { |book| book.author.downcase.include? string.downcase }
+    end
 
-  def self.isbn(isbn)
-    Criteria.new { |book| book.isbn.to_s.downcase.include? isbn.downcase }
-  end
+    def isbn(string)
+      Criteria.new { |book| book.isbn.to_s.downcase.include? string.downcase }
+    end
 
-  def self.any(string)
-    self.title(string) | self.series(string) | self.author(string) | self.isbn(string)
+    def any(string)
+      title(string) | series(string) | author(string) | isbn(string)
+    end
   end
 
   def |(other)
