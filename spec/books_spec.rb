@@ -21,9 +21,9 @@ describe "Book" do
     clash_of_kings.page_count.should eq 729
     clash_of_kings.genres.should eq ["Fantasy", "Novels"]
     clash_of_kings.language.should eq "Bulgarian"
-    clash_of_kings.can_take_home?.should eq true
+    clash_of_kings.loanable?.should eq true
     clash_of_kings.free?.should eq true
-    clash_of_kings.rent_period.should eq 31
+    clash_of_kings.loan_period.should eq 31
   end
 
   it "can update info" do
@@ -38,7 +38,7 @@ describe "Book" do
     clash_of_kings.page_count = 728
     clash_of_kings.genres = ["Fantasy", "Novels", "Epic"]
     clash_of_kings.language = "English"
-    clash_of_kings.rent_period = 32
+    clash_of_kings.loan_period = 32
 
     clash_of_kings.id.should eq 2
     clash_of_kings.isbn.should eq "978-0-5533-81696"
@@ -51,9 +51,9 @@ describe "Book" do
     clash_of_kings.page_count.should eq 728
     clash_of_kings.genres.should eq ["Fantasy", "Novels", "Epic"]
     clash_of_kings.language.should eq "English"
-    clash_of_kings.can_take_home?.should eq true
+    clash_of_kings.loanable?.should eq true
     clash_of_kings.free?.should eq true
-    clash_of_kings.rent_period.should eq 32
+    clash_of_kings.loan_period.should eq 32
   end
 
   it "can raise error on wrong ISBN" do
@@ -73,10 +73,10 @@ describe "Book" do
     clash_of_kings.return
     clash_of_kings.free?.should eq true
 
-    clash_of_kings.disable_taking_home
-    clash_of_kings.can_take_home?.should eq false
+    clash_of_kings.loanable = false
+    clash_of_kings.loanable?.should eq false
 
-    clash_of_kings.enable_taking_home
-    clash_of_kings.can_take_home?.should eq true
+    clash_of_kings.loanable = true
+    clash_of_kings.loanable?.should eq true
   end
 end

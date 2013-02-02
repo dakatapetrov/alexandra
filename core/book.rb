@@ -4,41 +4,35 @@ class Book
   attr_accessor :id, 	    :title,      :series,
                 :series_id, :author,     :year_published,
                 :publisher, :page_count, :genres,
-                :language,  :rent_period
+                :language,  :loan_period
+
+  attr_writer :loanable, :free
 
   def initialize(id, isbn, title, series, series_id, author, year_published,
-		publisher, page_count, genres, language, rent_period, can_take_home = true, is_free = true)
+		publisher, page_count, genres, language, loan_period, loanable = true, free = true)
 
     raise InvalidISBN if not isbn.nil? and not is_valid_isbn13? isbn
 
     @id, @isbn, @title, @series, @series_id, @author, @year_published, @publisher,
-    @page_count, @genres, @language, @can_take_home, @is_free, @rent_period = 
+    @page_count, @genres, @language, @loanable, @free, @loan_period = 
     id, isbn, title, series, series_id, author, year_published, publisher,
-    page_count, genres, language, can_take_home, is_free, rent_period
+    page_count, genres, language, loanable, free, loan_period
   end
 
   def free?()
-    @is_free
+    @free
   end
 
-  def can_take_home?()
-    @can_take_home
+  def loanable?()
+    @loanable
   end
 
   def take()
-    @is_free = false
+    @free = false
   end
 
   def return()
-    @is_free = true
-  end
-
-  def enable_taking_home()
-    @can_take_home = true
-  end
-
-  def disable_taking_home()
-    @can_take_home = false
+    @free = true
   end
 
   def isbn=(isbn)

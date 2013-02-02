@@ -16,7 +16,7 @@ class Loan
   def initialize(book)
     @book_id    = book.id
     @from_date = Date.today
-    @to_date = @from_date + book.rent_period
+    @to_date = @from_date + book.loan_period
     @extensions = []
     @returned = false
   end
