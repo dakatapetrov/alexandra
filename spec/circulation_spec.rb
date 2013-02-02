@@ -151,7 +151,7 @@ describe "Members" do
   end
 
   it "can list all usernames" do
-    members.usernames.should eq [
+    members.usernames.should =~ [
       "member",
       "someone",
       "noone",
@@ -159,7 +159,7 @@ describe "Members" do
   end
 
   it "can list all emails" do
-    members.emails.should eq [
+    members.emails.should =~ [
       "member@member.com",
       "someone@example.com",
       "unknown@somewhere.ddz",
@@ -167,7 +167,7 @@ describe "Members" do
   end
 
   it "is enumerable" do
-    members.map(&:username).should eq [
+    members.map(&:username).should =~ [
       "member",
       "someone",
       "noone",
@@ -177,7 +177,7 @@ describe "Members" do
   it "can add member" do
     members.add Member.new 4, "rootoor", "root@admin.com", "passwd"
 
-    members.usernames.should eq [
+    members.usernames.should =~ [
       "member",
       "someone",
       "noone",
@@ -188,7 +188,7 @@ describe "Members" do
   it "can remove member" do
     members.remove 3
 
-    members.usernames.should eq [
+    members.usernames.should =~ [
       "member",
       "someone",
     ]
