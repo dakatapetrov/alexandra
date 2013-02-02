@@ -19,19 +19,19 @@ class Book
     page_count, genres, language, loanable, free, loan_period
   end
 
-  def free?()
+  def free?
     @free
   end
 
-  def loanable?()
+  def loanable?
     @loanable
   end
 
-  def take()
+  def take
     @free = false
   end
 
-  def return()
+  def return
     @free = true
   end
 
