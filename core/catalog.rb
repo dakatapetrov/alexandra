@@ -27,38 +27,16 @@ class Catalog
     @books.delete_if { |book| book.id == id }
   end
 
-  def titles
-    list_uniq :title
-  end
-
-  def isbns
-    list_uniq :isbn
-  end
-
-  def series
-    list_uniq :series
-  end
-
-  def authors
-    list_uniq :author
-  end
-
-  def publishers
-    list_uniq :publisher
-  end
-
-  def genres
-    list_uniq :genres
+  %w[titles isbns authors publishers series genres].each do |name|
+    if name == "genres" or name == "series"
+      define_method(name) { @books.map(&name.to_sym).flatten.compact.uniq }
+    else
+      define_method(name) { @books.map(&name.chop.to_sym).flatten.compact.uniq }
+    end
   end
 
   def filter(criteria)
     Catalog.new @books.select { |book| criteria.met_by? book }
-  end
-
-  private
-
-  def list_uniq(attribute)
-    @books.map(&attribute).flatten.compact.uniq
   end
 end
 
