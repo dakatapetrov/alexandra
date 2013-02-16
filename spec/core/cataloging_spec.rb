@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'cataloging'
+require 'core/cataloging'
 
 module Alexandra::Core
   describe "Book" do

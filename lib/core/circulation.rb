@@ -1,6 +1,6 @@
 require 'date'
 require 'bcrypt'
-require './core/cataloging'
+require './lib/core/cataloging'
 
 module Alexandra
   module Core

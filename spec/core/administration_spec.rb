@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'administration'
+require 'core/administration'
 
 module Alexandra::Core
   describe "Administrator" do
