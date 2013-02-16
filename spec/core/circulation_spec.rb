@@ -1,5 +1,5 @@
-require 'rspec'
-require './core/circulation'
+require 'spec_helper'
+require 'circulation'
 
 module Alexandra
   describe "Extension" do

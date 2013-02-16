@@ -1,5 +1,5 @@
-require 'rspec'
-require './core/cataloging'
+require 'spec_helper'
+require 'cataloging'
 
 module Alexandra
   describe "Book" do

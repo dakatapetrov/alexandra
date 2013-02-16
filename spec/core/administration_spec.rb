@@ -1,5 +1,5 @@
-require 'rspec'
-require './core/administration'
+require 'spec_helper'
+require 'administration'
 
 module Alexandra
   describe "Administrator" do
