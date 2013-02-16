@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'cataloging'
 
-module Alexandra
+module Alexandra::Core
   describe "Book" do
     let(:clash_of_kings) do
       Book.new 1, "978-954-585-299-2", "A Clash of Kings",

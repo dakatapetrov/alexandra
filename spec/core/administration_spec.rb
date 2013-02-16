@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'administration'
 
-module Alexandra
+module Alexandra::Core
   describe "Administrator" do
     let(:admin) { Administrator.new 1, "admin", "123456" }
   

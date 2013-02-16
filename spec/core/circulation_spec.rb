@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'circulation'
 
-module Alexandra
+module Alexandra::Core
   describe "Extension" do
     let (:extension) { Extension.new(Date.today, Date.today + 3) }
   
