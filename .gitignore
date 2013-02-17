@@ -1,2 +1,5 @@
 # Ignore vim swp files
 *.swp
+
+# Database filse
+db/*.db
