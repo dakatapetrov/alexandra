@@ -4,14 +4,6 @@ require './lib/core/cataloging'
 
 module Alexandra
   module Core
-    class Extension
-      attr_reader :from_date, :to_date
-    
-      def initialize(from_date, to_date)
-        @from_date, @to_date = from_date, to_date
-      end
-    end
-    
     class Loan
       attr_reader :book_id, :from_date, :to_date, :extensions, :date_returned
     
@@ -29,12 +21,10 @@ module Alexandra
     
       def extend_by(days)
         @to_date += days
-        add_extension
       end
     
       def extend_to(date)
         @to_date = date
-        add_extension
       end
     
       def return
@@ -43,12 +33,6 @@ module Alexandra
         if @date_returned - @to_date <= 0 then 0
         else (@date_returned - @to_date).to_i
         end
-      end
-    
-      private
-    
-      def add_extension
-        @extensions << Extension.new(@from_date, @to_date)
       end
     end
     

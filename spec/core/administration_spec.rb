@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'core/administration'
 
 module Alexandra::Core
-  describe "Administrator" do
+  describe "Core::Administrator" do
     let(:admin) { Administrator.new 1, "admin", "123456" }
   
     it "can get administrator info" do
@@ -23,7 +23,7 @@ module Alexandra::Core
     end
   end
   
-  describe "Administrators" do
+  describe "Core::Administrators" do
     let(:admins) do
       Administrators.new [
         Administrator.new(1, "admin", "123456"),
@@ -69,7 +69,7 @@ module Alexandra::Core
     end
   end
   
-  describe "Library" do
+  describe "Core::Library" do
     let(:lib) { Library.new "SU Library" }
   
     it "can get library info" do

@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'core/cataloging'
 
 module Alexandra::Core
-  describe "Book" do
+  describe "Core::Book" do
     let(:clash_of_kings) do
-      Book.new 1, "978-954-585-299-2", "A Clash of Kings",
+      Book.create 1, "978-954-585-299-2", "A Clash of Kings",
         "A Song of Fire and Ice", 2, "George R.R. Martin",
         2001, "Bard", 729,
-        ["Fantasy", "Novels"], "Bulgarian", 31
+        "Fantasy", "Bulgarian", 31
       end
   
     it "can return basic info" do
@@ -20,7 +20,7 @@ module Alexandra::Core
       clash_of_kings.year_published.should eq 2001
       clash_of_kings.publisher.should eq "Bard"
       clash_of_kings.page_count.should eq 729
-      clash_of_kings.genres.should eq ["Fantasy", "Novels"]
+      clash_of_kings.genre.should eq "Fantasy"
       clash_of_kings.language.should eq "Bulgarian"
       clash_of_kings.loanable?.should eq true
       clash_of_kings.free?.should eq true
@@ -37,7 +37,7 @@ module Alexandra::Core
       clash_of_kings.year_published = 2002
       clash_of_kings.publisher = "Bardd"
       clash_of_kings.page_count = 728
-      clash_of_kings.genres = ["Fantasy", "Novels", "Epic"]
+      clash_of_kings.genre = "Fantasy"
       clash_of_kings.language = "English"
       clash_of_kings.loan_period = 32
   
@@ -50,15 +50,11 @@ module Alexandra::Core
       clash_of_kings.year_published.should eq 2002
       clash_of_kings.publisher.should eq "Bardd"
       clash_of_kings.page_count.should eq 728
-      clash_of_kings.genres.should eq ["Fantasy", "Novels", "Epic"]
+      clash_of_kings.genre.should eq "Fantasy"
       clash_of_kings.language.should eq "English"
       clash_of_kings.loanable?.should eq true
       clash_of_kings.free?.should eq true
       clash_of_kings.loan_period.should eq 32
-    end
-  
-    it "can raise error on wrong ISBN" do
-      expect{ clash_of_kings.isbn = "978-954-585-299-3" }.to raise_error(Book::InvalidISBN)
     end
   
     it "can have a nil value for isbn" do
@@ -82,54 +78,54 @@ module Alexandra::Core
     end
   end
   
-  describe "Catalog" do
+  describe "Core::Catalog" do
     let(:clash_of_kings) do
-      Book.new 1, "978-954-585-299-2", "A Clash of Kings",
+      Book.create 1, "978-954-585-299-2", "A Clash of Kings",
         "A Song of Fire and Ice", 2, "George R.R. Martin",
         2001, "Bard", 729,
-        ["Fantasy", "Novels"], "Bulgarian", 31
+        "Fantasy", "Bulgarian", 31
     end
   
     let(:game_of_thrones) do
-      Book.new 2, "978-954-585-293-8", "A Game of Thrones",
+      Book.create 2, "978-954-585-293-8", "A Game of Thrones",
         "A Song of Fire and Ice", 1, "George R.R. Martin",
         2001, "Bard", 702,
-        ["Fantasy", "Novels"], "Bulgarian", 31
+        "Fantasy", "Bulgarian", 31
     end
   
     let(:storm_of_swords) do
-      Book.new 3, "978-954-585-310-4", "A Storm of Swords",
+      Book.create 3, "978-954-585-310-4", "A Storm of Swords",
         "A Song of Fire and Ice", 3, "George R.R. Martin",
         2001, "Bard", 928,
-        ["Fantasy", "Novels"], "Bulgarian", 31
+        "Fantasy", "Bulgarian", 31
     end
   
     let(:java2) do
-      Book.new 4, "978-954-685-172-5", "Java 2",
+      Book.create 4, "978-954-685-172-5", "Java 2",
         nil, nil, "Herbert Schildt",
         2009, "Softpres", 584,
-        ["IT"], "Bulgarian", 40
+        "IT", "Bulgarian", 40
     end
   
     let(:pragmatic_programmer) do
-      Book.new 5, "978-0-2016-16228", "The Pragmatic Programmer: From Journeyman to Master",
+      Book.create 5, "978-0-2016-16228", "The Pragmatic Programmer: From Journeyman to Master",
         nil, nil, "Andrew Hunt, David Thomas",
       1999, "Addison-Wesley Professional", 352,
-      ["IT"], "English", 20
+      "IT", "English", 20
     end
   
     let(:witching_hour) do
-      Book.new 6, "978-0-3453-84469", "The Witching Hour",
+      Book.create 6, "978-0-3453-84469", "The Witching Hour",
         "Lives of the Mayfair Witches", 1, "Anne Rice",
         1993, "Ballantine Books", 1038,
-        ["Horror", "Fantasy", "Gothic"], "English", 46
+        "Horror", "English", 46
     end
   
     let(:pod_igoto) do
-      Book.new 7, nil, "Pod Igoto",
+      Book.create 7, nil, "Pod Igoto",
         nil, nil, "Ivan Vazov",
         1990, "Prosveta", 412,
-        ["Novels"], "Bulgarian", 31
+        "Novels", "Bulgarian", 31
     end
   
     let(:catalog) do
@@ -199,7 +195,6 @@ module Alexandra::Core
         "Fantasy",
         "Novels",
         "IT",
-        "Gothic",
         "Horror"
       ]
     end
@@ -261,7 +256,7 @@ module Alexandra::Core
     end
   
     it "can add book to colection" do
-      catalog.add Book.new 8, "978-0-4512-05768", "The Godfather",
+      catalog.add Book.create 8, "978-0-4512-05768", "The Godfather",
         "Mario Puzo's Mafia", nil, "Mario Puzo",
         2002, "NAL Trade", 448,
         ["Classics", "Novels"], "English", 30
@@ -279,7 +274,7 @@ module Alexandra::Core
   
     it "throws exception on attempt to add book with id already in the catalog" do
       expect do
-        catalog.add Book.new 6, nil, "A book",
+        catalog.add Book.create 6, nil, "A book",
           nil, nil, "Me",
           2013, "Publisher", 0,
           nil, "Bulgarian", 1

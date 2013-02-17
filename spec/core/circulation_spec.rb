@@ -2,18 +2,9 @@ require 'spec_helper'
 require 'core/circulation'
 
 module Alexandra::Core
-  describe "Extension" do
-    let (:extension) { Extension.new(Date.today, Date.today + 3) }
-  
-    it "can get info for extension" do
-      extension.from_date.should eq Date.today
-      extension.to_date.should eq Date.today + 3
-    end
-  end
-  
-  describe "Loans" do
+  describe "Core::Loans" do
     let(:game_of_thrones) do
-      Book.new 2, "978-954-585-293-8", "A Game of Thrones",
+      Book.create 2, "978-954-585-293-8", "A Game of Thrones",
         "A Song of Fire and Ice", 1, "George R.R. Martin",
         2001, "Bard", 702,
         ["Fantasy", "Novels"], "Bulgarian", 31
@@ -41,18 +32,6 @@ module Alexandra::Core
       loan.to_date.should eq Date.new(2012, 3, 4)
     end
   
-    it "can list all extensions" do
-      loan.extend_by 3
-      loan.extend_to Date.new(2012, 3, 20)
-  
-      extensions= loan.extensions
-  
-      extensions[0].from_date.should eq Date.today
-      extensions[0].to_date.should eq Date.today + 34
-      extensions[1].from_date.should eq Date.today
-      extensions[1].to_date.should eq Date.new(2012, 3, 20)
-    end
-  
     it "can return a book" do
       loan.return.should eq 0
       loan.returned?.should eq true
@@ -60,16 +39,16 @@ module Alexandra::Core
     end
   end
   
-  describe "Member" do
+  describe "Core::Member" do
     let(:game_of_thrones) do
-      Book.new 2, "978-954-585-293-8", "A Game of Thrones",
+      Book.create 2, "978-954-585-293-8", "A Game of Thrones",
         "A Song of Fire and Ice", 1, "George R.R. Martin",
         2001, "Bard", 702,
         ["Fantasy", "Novels"], "Bulgarian", 31
     end
   
     let(:storm_of_swords) do
-      Book.new 3, "978-954-585-310-4", "A Storm of Swords",
+      Book.create 3, "978-954-585-310-4", "A Storm of Swords",
         "A Song of Fire and Ice", 3, "George R.R. Martin",
         2001, "Bard", 928,
         ["Fantasy", "Novels"], "Bulgarian", 31
@@ -142,7 +121,7 @@ module Alexandra::Core
     end
   end
   
-  describe "Members" do
+  describe "Core::Members" do
     let (:members) do
       Members.new [
         Member.new(1, "member", "member@member.com", "123456"),

@@ -1,24 +1,34 @@
 module Alexandra
   module Core
     class Book
-      attr_reader :isbn
-    
       attr_accessor :id, 	    :title,      :series,
                     :series_id, :author,     :year_published,
-                    :publisher, :page_count, :genres,
-                    :language,  :loan_period
+                    :publisher, :page_count, :genre,
+                    :language,  :loan_period, :isbn
     
       attr_writer :loanable, :free
     
-      def initialize(id, isbn, title, series, series_id, author, year_published,
-    		publisher, page_count, genres, language, loan_period, loanable = true, free = true)
+      def self.create(id, isbn, title, series, series_id, author, year_published,
+    		publisher, page_count, genre, language, loan_period, loanable = true, free = true)
     
-        raise InvalidISBN if not isbn.nil? and not is_valid_isbn13? isbn
-    
-        @id, @isbn, @title, @series, @series_id, @author, @year_published, @publisher,
-        @page_count, @genres, @language, @loanable, @free, @loan_period = 
-        id, isbn, title, series, series_id, author, year_published, publisher,
-        page_count, genres, language, loanable, free, loan_period
+        book = Book.new
+
+        book.id = id
+        book.isbn = isbn
+        book.title = title
+        book.series = series
+        book.series_id = series_id
+        book.author = author
+        book.year_published = year_published
+        book.publisher = publisher
+        book.page_count = page_count
+        book.genre = genre
+        book.language = language
+        book.loanable = loanable
+        book.free = free
+        book.loan_period = loan_period
+
+        book
       end
     
       def free?
@@ -35,35 +45,6 @@ module Alexandra
     
       def return
         @free = true
-      end
-    
-      def isbn=(isbn)
-        raise InvalidISBN if not isbn.nil? and not is_valid_isbn13? isbn
-    
-        @isbn = isbn
-      end
-    
-      class InvalidISBN < ArgumentError
-      end
-    
-      private
-    
-      def isbn_checksum(isbn_string)
-        digits = isbn_string.split(//).map(&:to_i)
-        transformed_digits = digits.each_with_index.map do |digit, digit_index|
-          digit_index.modulo(2).zero? ? digit : digit*3
-        end
-        sum = transformed_digits.reduce(:+)
-      end
-     
-      def is_valid_isbn13?(isbn13)
-        checksum = isbn_checksum(isbn13)
-        checksum.modulo(10).zero?
-      end
-     
-      def isbn13_checksum_digit(isbn12)
-        checksum = isbn_checksum(isbn12)
-        10 - checksum.modulo(10)
       end
     end
     
@@ -95,7 +76,7 @@ module Alexandra
       end
     
       %w[titles isbns authors publishers series genres].each do |name|
-        if name == "genres" or name == "series"
+        if name == "series"
           define_method(name) { @books.map(&name.to_sym).flatten.compact.uniq }
         else
           define_method(name) { @books.map(&name.chop.to_sym).flatten.compact.uniq }
