@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'db_plugin/administration'
 
-#module Alexandra::Core
+module Alexandra::DB
   describe "DB::Administrator" do
     let(:admin) { Administrator.create 1, "admin", "123456" }
   
@@ -85,4 +85,4 @@ require 'db_plugin/administration'
       lib.fine.should eq 0.2
     end
   end
-#end
+end
