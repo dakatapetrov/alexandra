@@ -3,7 +3,7 @@ require 'core/administration'
 
 module Alexandra::Core
   describe "Core::Administrator" do
-    let(:admin) { Administrator.create 1, "admin", "123456" }
+    let(:admin) { Administrator.new 1, "admin", "123456" }
   
     it "can get administrator info" do
       admin.id.should eq 1
@@ -26,9 +26,9 @@ module Alexandra::Core
   describe "Core::Administrators" do
     let(:admins) do
       Administrators.new [
-        Administrator.create(1, "admin", "123456"),
-        Administrator.create(2, "rootoor", "asdasd"),
-        Administrator.create(3, "killbill", "killbill"),
+        Administrator.new(1, "admin", "123456"),
+        Administrator.new(2, "rootoor", "asdasd"),
+        Administrator.new(3, "killbill", "killbill"),
       ]
     end
   
@@ -49,7 +49,7 @@ module Alexandra::Core
     end
   
     it "can add administrator" do
-      admins.add Administrator.create 4, "superuser", "passwd"
+      admins.add Administrator.new 4, "superuser", "passwd"
   
       admins.map(&:username).should =~ [
         "admin",
@@ -70,7 +70,7 @@ module Alexandra::Core
   end
   
   describe "Core::Library" do
-    let(:lib) { Library.create "SU Library", 0.25 }
+    let(:lib) { Library.new "SU Library", 0.25 }
   
     it "can get library info" do
       lib.name.should eq "SU Library"

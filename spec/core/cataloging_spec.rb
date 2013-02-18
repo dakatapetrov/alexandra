@@ -4,7 +4,7 @@ require 'core/cataloging'
 module Alexandra::Core
   describe "Core::Book" do
     let(:clash_of_kings) do
-      Book.create 1, "978-954-585-299-2", "A Clash of Kings",
+      Book.new 1, "978-954-585-299-2", "A Clash of Kings",
         "A Song of Fire and Ice", 2, "George R.R. Martin",
         2001, "Bard", 729,
         "Fantasy", "Bulgarian", 31
@@ -80,49 +80,49 @@ module Alexandra::Core
   
   describe "Core::Catalog" do
     let(:clash_of_kings) do
-      Book.create 1, "978-954-585-299-2", "A Clash of Kings",
+      Book.new 1, "978-954-585-299-2", "A Clash of Kings",
         "A Song of Fire and Ice", 2, "George R.R. Martin",
         2001, "Bard", 729,
         "Fantasy", "Bulgarian", 31
     end
   
     let(:game_of_thrones) do
-      Book.create 2, "978-954-585-293-8", "A Game of Thrones",
+      Book.new 2, "978-954-585-293-8", "A Game of Thrones",
         "A Song of Fire and Ice", 1, "George R.R. Martin",
         2001, "Bard", 702,
         "Fantasy", "Bulgarian", 31
     end
   
     let(:storm_of_swords) do
-      Book.create 3, "978-954-585-310-4", "A Storm of Swords",
+      Book.new 3, "978-954-585-310-4", "A Storm of Swords",
         "A Song of Fire and Ice", 3, "George R.R. Martin",
         2001, "Bard", 928,
         "Fantasy", "Bulgarian", 31
     end
   
     let(:java2) do
-      Book.create 4, "978-954-685-172-5", "Java 2",
+      Book.new 4, "978-954-685-172-5", "Java 2",
         nil, nil, "Herbert Schildt",
         2009, "Softpres", 584,
         "IT", "Bulgarian", 40
     end
   
     let(:pragmatic_programmer) do
-      Book.create 5, "978-0-2016-16228", "The Pragmatic Programmer: From Journeyman to Master",
+      Book.new 5, "978-0-2016-16228", "The Pragmatic Programmer: From Journeyman to Master",
         nil, nil, "Andrew Hunt, David Thomas",
       1999, "Addison-Wesley Professional", 352,
       "IT", "English", 20
     end
   
     let(:witching_hour) do
-      Book.create 6, "978-0-3453-84469", "The Witching Hour",
+      Book.new 6, "978-0-3453-84469", "The Witching Hour",
         "Lives of the Mayfair Witches", 1, "Anne Rice",
         1993, "Ballantine Books", 1038,
         "Horror", "English", 46
     end
   
     let(:pod_igoto) do
-      Book.create 7, nil, "Pod Igoto",
+      Book.new 7, nil, "Pod Igoto",
         nil, nil, "Ivan Vazov",
         1990, "Prosveta", 412,
         "Novels", "Bulgarian", 31
@@ -256,7 +256,7 @@ module Alexandra::Core
     end
   
     it "can add book to colection" do
-      catalog.add Book.create 8, "978-0-4512-05768", "The Godfather",
+      catalog.add Book.new 8, "978-0-4512-05768", "The Godfather",
         "Mario Puzo's Mafia", nil, "Mario Puzo",
         2002, "NAL Trade", 448,
         ["Classics", "Novels"], "English", 30
@@ -274,7 +274,7 @@ module Alexandra::Core
   
     it "throws exception on attempt to add book with id already in the catalog" do
       expect do
-        catalog.add Book.create 6, nil, "A book",
+        catalog.add Book.new 6, nil, "A book",
           nil, nil, "Me",
           2013, "Publisher", 0,
           nil, "Bulgarian", 1

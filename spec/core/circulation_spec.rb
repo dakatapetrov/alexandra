@@ -4,13 +4,13 @@ require 'core/circulation'
 module Alexandra::Core
   describe "Core::Loans" do
     let(:game_of_thrones) do
-      Book.create 2, "978-954-585-293-8", "A Game of Thrones",
+      Book.new 2, "978-954-585-293-8", "A Game of Thrones",
         "A Song of Fire and Ice", 1, "George R.R. Martin",
         2001, "Bard", 702,
         ["Fantasy", "Novels"], "Bulgarian", 31
     end
   
-    let(:loan) { Loan.create game_of_thrones }
+    let(:loan) { Loan.new game_of_thrones }
   
     it "can get info from loan" do
       loan.from_date.should eq Date.today
@@ -41,20 +41,20 @@ module Alexandra::Core
   
   describe "Core::Member" do
     let(:game_of_thrones) do
-      Book.create 2, "978-954-585-293-8", "A Game of Thrones",
+      Book.new 2, "978-954-585-293-8", "A Game of Thrones",
         "A Song of Fire and Ice", 1, "George R.R. Martin",
         2001, "Bard", 702,
         ["Fantasy", "Novels"], "Bulgarian", 31
     end
   
     let(:storm_of_swords) do
-      Book.create 3, "978-954-585-310-4", "A Storm of Swords",
+      Book.new 3, "978-954-585-310-4", "A Storm of Swords",
         "A Song of Fire and Ice", 3, "George R.R. Martin",
         2001, "Bard", 928,
         ["Fantasy", "Novels"], "Bulgarian", 31
     end
   
-    let (:member) { Member.create 0, "testuser", "testuser@testhost.com", "123456" }
+    let (:member) { Member.new 0, "testuser", "testuser@testhost.com", "123456" }
   
     def compare_loans(loan, book_id, from_date, to_date)
       loan.book_id.should eq book_id
@@ -124,9 +124,9 @@ module Alexandra::Core
   describe "Core::Members" do
     let (:members) do
       Members.new [
-        Member.create(1, "member", "member@member.com", "123456"),
-        Member.create(2, "someone", "someone@example.com", "321123"),
-        Member.create(3, "noone", "unknown@somewhere.ddz", "asdasd"),
+        Member.new(1, "member", "member@member.com", "123456"),
+        Member.new(2, "someone", "someone@example.com", "321123"),
+        Member.new(3, "noone", "unknown@somewhere.ddz", "asdasd"),
       ]
     end
   
@@ -155,7 +155,7 @@ module Alexandra::Core
     end
   
     it "can add member" do
-      members.add Member.create 4, "rootoor", "root@admin.com", "passwd"
+      members.add Member.new 4, "rootoor", "root@admin.com", "passwd"
   
       members.usernames.should =~ [
         "member",

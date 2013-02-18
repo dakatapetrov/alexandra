@@ -5,13 +5,9 @@ module Alexandra
     class Administrator
       attr_accessor :id, :username
     
-      def self.create(id, username, password)
-        administrator = Administrator.new
-
-        administrator.id, administrator.username = id, username
-        administrator.password = password
-
-        administrator
+      def initialize(id, username, password)
+        @id, @username = id, username
+        @password = BCrypt::Password.create password
       end
     
       def password?(password)
@@ -50,14 +46,9 @@ module Alexandra
     class Library
       attr_accessor :name, :fine
     
-      def self.create(name, fine)
-        library = Library.new
-
-        library.name = name
-        library.fine = fine
-
-
-        library
+      def initialize(name, fine)
+        @name = name
+        @fine = fine
       end
     end
   end

@@ -1,22 +1,18 @@
 require 'date'
 require 'bcrypt'
-require './lib/core/cataloging'
+require_relative 'cataloging'
 
 module Alexandra
   module Core
     class Loan
       attr_accessor :book_id, :from_date, :to_date, :extensions, :returned, :date_returned
     
-      def self.create(book)
-        loan = Loan.new
-
-        loan.book_id    = book.id
-        loan.from_date = Date.today
-        loan.to_date = Date.today + book.loan_period
-        loan.extensions = []
-        loan.returned = false
-
-        loan
+      def initialize(book)
+        @book_id    = book.id
+        @from_date = Date.today
+        @to_date = @from_date + book.loan_period
+        @extensions = []
+        @returned = false
       end
     
       def returned?
@@ -43,16 +39,13 @@ module Alexandra
     class Member
       attr_accessor :id, :username, :email, :loans
     
-      def self.create(id, username, email, password)
-        member = Member.new
-
-        member.id, member.username, member.email = id, username, email
-        member.password = password
-        member.loans = []
-
-        member
+      def initialize(id, username, email, password)
+        @id, @username, @email = id, username, email
+        @password = BCrypt::Password.create(password)
+        @email_confirmed = false
+        @loans = []
       end
-    
+
       def email_confirmed?
         @email_confirmed
       end
@@ -75,7 +68,7 @@ module Alexandra
       end
     
       def take(book)
-        @loans << Loan.create(book)
+        @loans << Loan.new(book)
       end
     
       def return(book)

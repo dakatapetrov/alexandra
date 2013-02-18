@@ -8,27 +8,12 @@ module Alexandra
     
       attr_writer :loanable, :free
     
-      def self.create(id, isbn, title, series, series_id, author, year_published,
+     def initialize(id, isbn, title, series, series_id, author, year_published,
     		publisher, page_count, genre, language, loan_period, loanable = true, free = true)
-    
-        book = Book.new
-
-        book.id = id
-        book.isbn = isbn
-        book.title = title
-        book.series = series
-        book.series_id = series_id
-        book.author = author
-        book.year_published = year_published
-        book.publisher = publisher
-        book.page_count = page_count
-        book.genre = genre
-        book.language = language
-        book.loanable = loanable
-        book.free = free
-        book.loan_period = loan_period
-
-        book
+        @id, @isbn, @title, @series, @series_id, @author, @year_published, @publisher,
+        @page_count, @genre, @language, @loanable, @free, @loan_period = 
+        id, isbn, title, series, series_id, author, year_published, publisher,
+        page_count, genre, language, loanable, free, loan_period
       end
     
       def free?
