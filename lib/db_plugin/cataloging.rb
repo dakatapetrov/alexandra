@@ -22,28 +22,6 @@ module Alexandra
     property :loan_period, Integer
     property :loanable, Boolean, :required => true, :default => true
     property :free, Boolean, :required => true, :default => false
-  
-    def self.create(id, isbn, title, series, series_id, author, year_published,
-      		publisher, page_count, genre, language, loan_period, loanable = true, free = true)
-      
-      book = Book.new
-  
-      book.isbn = isbn
-      book.title = title
-      book.series = series
-      book.series_id = series_id
-      book.author = author
-      book.year_published = year_published
-      book.publisher = publisher
-      book.page_count = page_count
-      book.genre = genre
-      book.language = language
-      book.loanable = loanable
-      book.free = free
-      book.loan_period = loan_period
-  
-      book
-    end
   end
   
   class Catalog < Alexandra::Core::Catalog
