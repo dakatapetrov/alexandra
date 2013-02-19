@@ -1,20 +1,16 @@
 module Alexandra
   module Core
     class Book
-      attr_accessor :id, 	      :title,       :series,
+      attr_accessor :id, 	:title,       :series,
                     :series_id, :author,      :year_published,
                     :publisher, :page_count,  :genre,
                     :language,  :loan_period, :isbn
 
       attr_writer :loanable, :free
 
-     def initialize(id, isbn, title, series, series_id, author, year_published,
-    		publisher, page_count, genre, language, loan_period, loanable = true, free = true)
-
-        @id, @isbn, @title, @series, @series_id, @author, @year_published, @publisher,
-        @page_count, @genre, @language, @loanable, @free, @loan_period =
-          id, isbn, title, series, series_id, author, year_published, publisher,
-          page_count, genre, language, loanable, free, loan_period
+     def initialize(id, title, author, loan_period)
+        @id, @title, @author, @loan_period = id, title, author, loan_period
+        @loanable, @free            = true, true
       end
 
       def free?
