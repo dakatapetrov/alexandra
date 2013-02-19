@@ -10,7 +10,7 @@ module Alexandra::Core
                31
     end
 
-    let :loan { Loan.new game_of_thrones }
+    let(:loan) { Loan.new game_of_thrones }
 
     it "can get info from loan" do
       loan.from_date.should     eq Date.today
@@ -54,7 +54,7 @@ module Alexandra::Core
                31
     end
 
-    let :member { Member.new 0, "testuser", "testuser@testhost.com", "123456" }
+    let(:member) { Member.new 0, "testuser", "testuser@testhost.com", "123456" }
 
     def compare_loans(loan, book_id, from_date, to_date)
       loan.book_id.should   eq book_id
