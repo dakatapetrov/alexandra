@@ -21,7 +21,7 @@ module Alexandra::Core
 
     it "can update/set info" do
       clash_of_kings.id             =  2
-      clash_of_kings.isbn           = "978-0-5533-81696"
+      clash_of_kings.isbn           = 9780553381696
       clash_of_kings.title          = "A Clash of Kingss"
       clash_of_kings.series         = "A Song of Fire and Icee"
       clash_of_kings.series_id      = 3
@@ -34,7 +34,7 @@ module Alexandra::Core
       clash_of_kings.loan_period    = 32
 
       clash_of_kings.id.should             eq 2
-      clash_of_kings.isbn.should           eq "978-0-5533-81696"
+      clash_of_kings.isbn.should           eq 9780553381696
       clash_of_kings.title.should          eq "A Clash of Kingss"
       clash_of_kings.series.should         eq "A Song of Fire and Icee"
       clash_of_kings.series_id.should      eq 3
@@ -133,12 +133,12 @@ module Alexandra::Core
     end
 
     before :all do
-      clash_of_kings.isbn       = "978-954-585-299-2",
-      game_of_thrones.isbn      = "978-954-585-293-8",
-      storm_of_swords.isbn      = "978-954-585-310-4"
-      pragmatic_programmer.isbn = "978-0-2016-16228"
-      java2.isbn                = "978-954-685-172-5"
-      witching_hour.isbn        = "978-0-3453-84469"
+      clash_of_kings.isbn       = 9789545852992
+      game_of_thrones.isbn      = 9789545852938
+      storm_of_swords.isbn      = 9789545853104
+      pragmatic_programmer.isbn = 9780201616228
+      java2.isbn                = 9789546851725
+      witching_hour.isbn        = 9780345384469
     end
 
     it "can find all book titles in catalog" do
@@ -155,12 +155,12 @@ module Alexandra::Core
 
     it "can find all ISBNs in catalog" do
       catalog.isbns.should =~ [
-        "978-954-585-299-2",
-        "978-954-585-293-8",
-        "978-954-585-310-4",
-        "978-954-685-172-5",
-        "978-0-2016-16228",
-        "978-0-3453-84469"
+        9789545852992,
+        9789545852938,
+        9789545853104,
+        9789546851725,
+        9780201616228,
+        9780345384469,
       ]
     end
 
@@ -219,7 +219,7 @@ module Alexandra::Core
     end
 
     it "can be filtered by ISBN" do
-      filtered = catalog.filter Criteria.isbn("978-954-585-299-2")
+      filtered = catalog.filter Criteria.isbn(9789545852992)
 
       filtered.map(&:title).should =~ ["A Clash of Kings"]
     end
@@ -242,7 +242,7 @@ module Alexandra::Core
       #filtered = catalog.filter Criteria.series("fire")
       #filtered.map(&:title).should =~ ["A Clash of Kings", "A Storm of Swords", "A Game of Thrones"]
 
-      filtered = catalog.filter Criteria.isbn("978-0-2016")
+      filtered = catalog.filter Criteria.isbn(97802016)
       filtered.map(&:title).should =~ ["The Pragmatic Programmer: From Journeyman to Master"]
     end
 
@@ -256,7 +256,7 @@ module Alexandra::Core
       #filtered = catalog.filter Criteria.any("fire")
       #filtered.map(&:title).should =~ ["A Clash of Kings", "A Storm of Swords", "A Game of Thrones"]
 
-      filtered = catalog.filter Criteria.any("978-0-2016")
+      filtered = catalog.filter Criteria.any(97802016)
       filtered.map(&:title).should =~ ["The Pragmatic Programmer: From Journeyman to Master"]
     end
 
@@ -266,16 +266,16 @@ module Alexandra::Core
                            "Mario Puzo",
                            30
 
-      catalog.get(8).isbn = "978-0-4512-05768"
+      catalog.get(8).isbn = 9780451205768
 
       catalog.isbns.should =~ [
-        "978-954-585-299-2",
-        "978-954-585-293-8",
-        "978-954-585-310-4",
-        "978-954-685-172-5",
-        "978-0-2016-16228",
-        "978-0-3453-84469",
-        "978-0-4512-05768"
+        9789545852992,
+        9789545852938,
+        9789545853104,
+        9789546851725,
+        9780201616228,
+        9780345384469,
+        9780451205768,
       ]
     end
 

@@ -94,12 +94,12 @@ module Alexandra
           Criteria.new { |book| book.author.downcase.include? string.downcase }
         end
 
-        def isbn(string)
-          Criteria.new { |book| book.isbn.to_s.downcase.include? string.downcase }
+        def isbn(isbn)
+          Criteria.new { |book| book.isbn.to_s.downcase.include? isbn.to_s.downcase }
         end
 
         def any(string)
-          title(string) | series(string) | author(string) | isbn(string)
+          title(string.to_s) | series(string.to_s) | author(string.to_s) | isbn(string.to_s)
         end
       end
 
