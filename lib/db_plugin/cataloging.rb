@@ -1,8 +1,9 @@
-require 'data_mapper'
+require 'dm-core'
+require 'dm-migrations'
 
 module Alexandra
   module DB
-  
+
     DataMapper::setup(:default, "sqlite3:///home/dakata/Documents/Development/Ruby/alexandra/db/development.db")
 
     class Book
@@ -20,7 +21,7 @@ module Alexandra
       property :language,       String
       property :loan_period,    Integer, required: true
       property :loanable,       Boolean, required: true, default: true
-      property :free,           Boolean, required: true, default: false
+      property :free,           Boolean, required: true, default: true
     end
 
     DataMapper.finalize.auto_upgrade!

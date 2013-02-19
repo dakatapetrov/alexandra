@@ -1,4 +1,6 @@
-require 'data_mapper'
+require 'dm-core'
+require 'dm-migrations'
+require 'dm-types'
 require 'date'
 require 'bcrypt'
 
