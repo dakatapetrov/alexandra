@@ -11,13 +11,13 @@ module Alexandra
       include DataMapper::Resource
 
       property :id,            Serial
+      property :book_id,       Integer, required: true
       property :from_date,     Date,    required: true, default: Date.today
       property :to_date,       Date,    required: true
       property :returned,      Boolean, required: true, default: false
       property :date_returned, Date
 
       belongs_to :member
-      belongs_to :book
     end
     
     class Member
