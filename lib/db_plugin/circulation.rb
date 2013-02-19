@@ -18,6 +18,7 @@ module Alexandra
       property :date_returned, Date
 
       belongs_to :member
+      belongs_to :book
     end
     
     class Member
