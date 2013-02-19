@@ -28,7 +28,7 @@ module Alexandra::Core
   end
 
   describe "Core::Administrators" do
-    let(:admins) do
+    let :admins do
       Administrators.new [
         Administrator.new(1, "admin", "123456"),
         Administrator.new(2, "rootoor", "asdasd"),
