@@ -5,6 +5,8 @@ module Alexandra
     class Administrator
       attr_accessor :id, :username
 
+      attr_reader :password
+
       def initialize(id, username, password)
         @id       = id
         @username = username.downcase
@@ -16,7 +18,11 @@ module Alexandra
       end
 
       def password=(password)
-        @password = BCrypt::Password.create password
+        if password.class == BCrypt::Password
+          @password = BCrypt::Password.new password
+        else
+          @password = BCrypt::Password.create password
+        end
       end
     end
 

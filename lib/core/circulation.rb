@@ -42,7 +42,7 @@ module Alexandra
     class Member
       attr_accessor :id, :username, :email, :loans
 
-      attr_reader :date_registred
+      attr_reader :date_registred, password
 
       def initialize(id, username, email, password)
         @id              = id
@@ -72,7 +72,11 @@ module Alexandra
       end
 
       def password=(password)
-        @password = BCrypt::Password.create(password)
+        if password.class == BCrypt::Password
+          @password = BCrypt::Password.new password
+        else
+          @password = BCrypt::Password.create(password)
+        end
       end
 
       def take(book)
