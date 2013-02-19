@@ -42,12 +42,15 @@ module Alexandra
     class Member
       attr_accessor :id, :username, :email, :loans
 
+      attr_reader :date_registred
+
       def initialize(id, username, email, password)
         @id              = id
         @username        = username.downcase
         @email           = email
         @password        = BCrypt::Password.create(password)
         @email_confirmed = false
+        @date_registred  = Date.today
         @loans           = []
       end
 

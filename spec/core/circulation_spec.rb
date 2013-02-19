@@ -67,6 +67,7 @@ module Alexandra::Core
       member.username.should         eq "testuser"
       member.email.should            eq "testuser@testhost.com"
       member.email_confirmed?.should eq false
+      member.date_registred.should   eq Date.today
     end
 
     it "conerts username to downcase" do
