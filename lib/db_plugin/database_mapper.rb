@@ -7,28 +7,34 @@ module Alexandra
   module DB
     class DBMap
       class << self
-        def load(object)
-          case object
-          when Alexandra::Core::Library       then load_library       object
-          when Alexandra::Core::Book          then load_book          object
-          when Alexandra::Core::Member        then load_member        object
-          when Alexandra::Core::Administrator then load_administrator object
+        def load(hash)
+          case
+          when hash[:library]       then load_library
+          when hash[:book]          then load_book          hash[:book]
+          when hash[:member]        then load_member        hash[:member]
+          when hash[:administrator] then load_administrator hash[:administrator]
           end
         end
 
-        def load_library(library)
+        def load_library
           db_library = Library.get(1)
-          return false if not db_library
+          return nil if not db_library
+
+          library = Alexandra::Core::Library.new nil, nil
 
           library.name = db_library.name
           library.fine = db_library.fine
-          true
+
+          library
         end
 
-        def load_book(book)
-          db_book = Book.get(book.id)
-          return false if not db_book
+        def load_book(id)
+          db_book = Book.get(id)
+          return nil if not db_book
 
+          book = Alexandra::Core::Book.new nil, nil, nil, nil
+
+          book.id             = db_book.id
           book.title          = db_book.title
           book.isbn           = db_book.isbn
           book.series         = db_book.series
@@ -42,31 +48,42 @@ module Alexandra
           book.loan_period    = db_book.loan_period
           book.loanable       = db_book.loanable
           book.free           = db_book.free
-          true
+
+          book
         end
 
-        def load_administrator(admin)
-          db_admin = Administrator.get(admin.id)
-          return false if not db_admin
+        def load_administrator(id)
+          db_admin = Administrator.get(id)
+          return nil if not db_admin
 
+          admin = Alexandra::Core::Administrator.new nil, "", nil
+
+          admin.id       = db_admin.id
           admin.username = db_admin.username
           admin.password = db_admin.password
-          true
+
+          admin
         end
 
-        def load_member(member)
-          db_member = Member.get(member.id)
-          return false if not db_member
+        def load_member(id)
+          db_member = Member.get(id)
+          return nil if not db_member
 
+          member = Alexandra::Core::Member.new nil, "", nil, nil
+
+          member.id       = db_member.id
           member.username = db_member.username
           member.email    = db_member.email
           member.password = db_member.password
-          load_loans member.loans, member.id
+          member.loans    = load_loans id
           member.confirm_email if db_member.email_confirmed
-          true
+
+          member
         end
 
-        def load_loans(loans, member_id)
+        def load_loans(member_id)
+          loans = []
+
           return if not Loan.all(:member_id => member_id)
           Loan.all(:member_id => member_id).each do |db_loan|
             loan = Alexandra::Core::Loan.new db_loan.book_id, 0
@@ -78,6 +95,8 @@ module Alexandra
 
             loans << loan
           end
+
+          loans
         end
 
         def save(object)
