@@ -11,7 +11,7 @@ module Alexandra::Core
       end
 
     it "can return basic info" do
-      clash_of_kings.id.should             eq 1
+      clash_of_kings.library_id.should     eq 1
       clash_of_kings.title.should          eq "A Clash of Kings"
       clash_of_kings.author.should         eq "George R.R. Martin"
       clash_of_kings.loanable?.should      eq true
@@ -20,7 +20,7 @@ module Alexandra::Core
     end
 
     it "can update/set info" do
-      clash_of_kings.id             =  2
+      clash_of_kings.library_id     =  2
       clash_of_kings.isbn           = 9780553381696
       clash_of_kings.title          = "A Clash of Kingss"
       clash_of_kings.series         = "A Song of Fire and Icee"
@@ -33,7 +33,7 @@ module Alexandra::Core
       clash_of_kings.language       = "English"
       clash_of_kings.loan_period    = 32
 
-      clash_of_kings.id.should             eq 2
+      clash_of_kings.library_id.should     eq 2
       clash_of_kings.isbn.should           eq 9780553381696
       clash_of_kings.title.should          eq "A Clash of Kingss"
       clash_of_kings.series.should         eq "A Song of Fire and Icee"
@@ -102,7 +102,7 @@ module Alexandra::Core
     let :pragmatic_programmer do
       Book.new 5,
                "The Pragmatic Programmer: From Journeyman to Master",
-               "Andrew Hunt, David Thomas",
+               "Andrew Hunt, Da.library_id Thomas",
                20
     end
 
@@ -174,7 +174,7 @@ module Alexandra::Core
     it "can find all authors in catalog" do
       catalog.authors.should =~ [
         "George R.R. Martin",
-        "Andrew Hunt, David Thomas",
+        "Andrew Hunt, Da.library_id Thomas",
         "Herbert Schildt",
         "Anne Rice",
         "Ivan Vazov"
@@ -279,7 +279,7 @@ module Alexandra::Core
       ]
     end
 
-    it "throws exception on attempt to add book with id already in the catalog" do
+    it "throws exception on attempt to add book with.library_id already in the catalog" do
       expect do
         catalog.add Book.new 6,
                              "A book",
@@ -288,7 +288,7 @@ module Alexandra::Core
       end.to raise_error(Catalog::BookIDExists)
     end
 
-    it "can get book by id in catalog" do
+    it "can get book by.library_id in catalog" do
       book = catalog.get(7)
 
       book.title.should eq "Pod Igoto"
@@ -299,7 +299,7 @@ module Alexandra::Core
 
       catalog.authors.should =~ [
         "George R.R. Martin",
-        "Andrew Hunt, David Thomas",
+        "Andrew Hunt, Da.library_id Thomas",
         "Herbert Schildt",
         "Anne Rice",
         "Mario Puzo",

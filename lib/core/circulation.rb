@@ -40,12 +40,11 @@ module Alexandra
     end
 
     class Member
-      attr_accessor :id, :username, :email, :loans
+      attr_accessor :username, :email, :loans
 
       attr_reader :date_registred, :password
 
-      def initialize(id, username, email, password)
-        @id              = id
+      def initialize(username, email, password)
         @username        = username.downcase
         @email           = email
         @password        = BCrypt::Password.create(password)
@@ -128,8 +127,8 @@ module Alexandra
         @members_list << member
       end
 
-      def remove(member_id)
-        @members_list.delete_if { |member| member_id == member.id }
+      def remove(username)
+        @members_list.delete_if { |member| member.username== username }
       end
 
       private

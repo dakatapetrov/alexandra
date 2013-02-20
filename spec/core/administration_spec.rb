@@ -3,15 +3,14 @@ require 'core/administration'
 
 module Alexandra::Core
   describe "Core::Administrator" do
-    let(:admin) { Administrator.new 1, "admin", "123456" }
+    let(:admin) { Administrator.new "admin", "123456" }
 
     it "can get administrator info" do
-      admin.id.should       eq 1
       admin.username.should eq "admin"
     end
 
     it "converts username to downcase" do
-      Administrator.new(1, "AdMiN", "123456").username.should eq "admin"
+      Administrator.new("AdMiN", "123456").username.should eq "admin"
     end
 
     it "can check password" do
@@ -30,9 +29,9 @@ module Alexandra::Core
   describe "Core::Administrators" do
     let :admins do
       Administrators.new [
-        Administrator.new(1, "admin", "123456"),
-        Administrator.new(2, "rootoor", "asdasd"),
-        Administrator.new(3, "killbill", "killbill"),
+        Administrator.new("admin", "123456"),
+        Administrator.new("rootoor", "asdasd"),
+        Administrator.new("killbill", "killbill"),
       ]
     end
 
@@ -53,7 +52,7 @@ module Alexandra::Core
     end
 
     it "can add administrator" do
-      admins.add Administrator.new 4, "superuser", "passwd"
+      admins.add Administrator.new "superuser", "passwd"
 
       admins.map(&:username).should =~ [
         "admin",
@@ -64,12 +63,12 @@ module Alexandra::Core
     end
 
     it "has unique usernames" do
-      expect{ admins.add Administrator.new(5, "admin", "123456") }.
+      expect{ admins.add Administrator.new "admin", "123456" }.
         to raise_error(Administrators::UsernameTaken)
     end
 
     it "can remove administrator" do
-      admins.remove 2
+      admins.remove "rootoor"
 
       admins.map(&:username).should =~ [
         "admin",

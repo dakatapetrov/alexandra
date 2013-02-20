@@ -3,12 +3,11 @@ require 'bcrypt'
 module Alexandra
   module Core
     class Administrator
-      attr_accessor :id, :username
+      attr_accessor :username
 
       attr_reader :password
 
-      def initialize(id, username, password)
-        @id       = id
+      def initialize(username, password)
         @username = username.downcase
         @password = BCrypt::Password.create password
       end
@@ -50,8 +49,8 @@ module Alexandra
         @administrators << administrator
       end
 
-      def remove(id)
-        @administrators.delete_if { |admin| admin.id == id }
+      def remove(username)
+        @administrators.delete_if { |admin| admin.username == username }
       end
     end
 

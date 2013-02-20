@@ -34,7 +34,7 @@ module Alexandra::Core
 
   describe "Core::Member" do
 
-    let(:member) { Member.new 0, "testuser", "testuser@testhost.com", "123456" }
+    let(:member) { Member.new "testuser", "testuser@testhost.com", "123456" }
 
     def compare_loans(loan, book_id, from_date, to_date)
       loan.book_id.should   eq book_id
@@ -43,7 +43,6 @@ module Alexandra::Core
     end
 
     it "can get member info" do
-      member.id.should               eq 0
       member.username.should         eq "testuser"
       member.email.should            eq "testuser@testhost.com"
       member.email_confirmed?.should eq false
@@ -51,7 +50,7 @@ module Alexandra::Core
     end
 
     it "conerts username to downcase" do
-      Member.new(1, "MemBEr", "member@somewhere.name", "123456").username.should eq "member"
+      Member.new("MemBEr", "member@somewhere.name", "123456").username.should eq "member"
     end
 
     it "can confirm e-mail" do
@@ -109,9 +108,9 @@ module Alexandra::Core
   describe "Core::Members" do
     let :members do
       Members.new [
-        Member.new(1, "member",  "member@member.com",     "123456"),
-        Member.new(2, "someone", "someone@example.com",   "321123"),
-        Member.new(3, "noone",   "unknown@somewhere.ddz", "asdasd"),
+        Member.new("member",  "member@member.com",     "123456"),
+        Member.new("someone", "someone@example.com",   "321123"),
+        Member.new("noone",   "unknown@somewhere.ddz", "asdasd"),
       ]
     end
 
@@ -140,7 +139,7 @@ module Alexandra::Core
     end
 
     it "can add member" do
-      members.add Member.new 4, "rootoor", "root@admin.com", "passwd"
+      members.add Member.new"rootoor", "root@admin.com", "passwd"
 
       members.usernames.should =~ [
         "member",
@@ -151,17 +150,17 @@ module Alexandra::Core
     end
 
     it "has unique usernames" do
-      expect{ members.add Member.new 4, "member", "somewhere@nvm.com", "passwd" }.
+      expect{ members.add Member.new "member", "somewhere@nvm.com", "passwd" }.
         to raise_error(Members::UsernameTaken)
     end
 
     it "has unique e-mail addresses" do
-      expect{ members.add Member.new 4, "unkniwn", "member@member.com", "passwd" }.
+      expect{ members.add Member.new "unkniwn", "member@member.com", "passwd" }.
         to raise_error(Members::EmailTaken)
     end
 
     it "can remove member" do
-      members.remove 3
+      members.remove "noone"
 
       members.usernames.should =~ [
         "member",

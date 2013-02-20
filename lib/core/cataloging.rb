@@ -1,18 +1,18 @@
 module Alexandra
   module Core
     class Book
-      attr_accessor :id, 	:title,       :series,
-                    :series_id, :author,      :year_published,
-                    :publisher, :page_count,  :genre,
-                    :language,  :loan_period, :isbn
+      attr_accessor :library_id, :title,       :series,
+                    :series_id,  :author,      :year_published,
+                    :publisher,  :page_count,  :genre,
+                    :language,   :loan_period, :isbn
 
       attr_writer :loanable, :free
 
-     def initialize(id, title, author, loan_period)
-        @id, @title, @author, @loan_period               = id,   title, author, loan_period
-        @loanable, @free                                 = true, true
-        @series, @series_id, @year_published, @publisher = nil,  nil,   nil,    nil
-        @page_count, @language, @genre                   = nil,  nil,   nil
+     def initialize(library_id, title, author, loan_period)
+        @library_id, @title,     @author, @loan_period    = library_id,   title, author, loan_period
+        @loanable,   @free                                = true,         true
+        @publisher,  @series_id, @genre , @year_published = nil,          nil,   nil,    nil
+        @page_count, @language,  @series                  = nil,          nil,   nil
       end
 
       def free?
@@ -46,17 +46,17 @@ module Alexandra
         @books.each(&block)
       end
 
-      def add(book)
-        raise BookIDExists if @books.any? { |catalog_book| catalog_book.id == book.id }
-        @books << book
+      def add(new_book)
+        raise BookIDExists if @books.any? { |book| book.library_id == new_book.library_id }
+        @books << new_book
       end
 
-      def get(id)
-        @books.select { |book| book.id == id }.first
+      def get(library_id)
+        @books.select { |book| book.library_id == library_id }.first
       end
 
-      def delete(id)
-        @books.delete_if { |book| book.id == id }
+      def delete(library_id)
+        @books.delete_if { |book| book.library_id == library_id }
       end
 
       %w[titles isbns authors publishers series genres].each do |name|
