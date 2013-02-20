@@ -1,7 +1,5 @@
-require_relative 'administration'
-require_relative 'cataloging'
-require_relative 'circulation'
-require_relative '../core/core'
+require_relative 'db_plugin/db_plugin'
+require_relative 'core/core'
 
 module Alexandra
   class Mapper
