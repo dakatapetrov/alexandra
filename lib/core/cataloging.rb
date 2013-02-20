@@ -9,8 +9,10 @@ module Alexandra
       attr_writer :loanable, :free
 
      def initialize(id, title, author, loan_period)
-        @id, @title, @author, @loan_period = id, title, author, loan_period
-        @loanable, @free            = true, true
+        @id, @title, @author, @loan_period               = id,   title, author, loan_period
+        @loanable, @free                                 = true, true
+        @series, @series_id, @year_published, @publisher = nil,  nil,   nil,    nil
+        @page_count, @language, @genre                   = nil,  nil,   nil
       end
 
       def free?
