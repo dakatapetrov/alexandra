@@ -6,11 +6,11 @@ module Alexandra::Core
     let(:loan) { Loan.new 2, 31 }
 
     it "can get info from loan" do
-      loan.from_date.should     eq Date.today
-      loan.to_date.should       eq Date.today + 31
-      loan.book_id.should       eq 2
-      loan.returned?.should     eq false
-      loan.date_returned.should eq nil
+      loan.from_date.should             eq Date.today
+      loan.to_date.should               eq Date.today + 31
+      loan.library_book_id.should       eq 2
+      loan.returned?.should             eq false
+      loan.date_returned.should         eq nil
     end
 
     it "can extend loan period by given amound of days" do
@@ -36,10 +36,10 @@ module Alexandra::Core
 
     let(:member) { Member.new "testuser", "testuser@testhost.com", "123456" }
 
-    def compare_loans(loan, book_id, from_date, to_date)
-      loan.book_id.should   eq book_id
-      loan.from_date.should eq from_date
-      loan.to_date.should   eq to_date
+    def compare_loans(loan, library_book_id, from_date, to_date)
+      loan.library_book_id.should   eq library_book_id
+      loan.from_date.should         eq from_date
+      loan.to_date.should           eq to_date
     end
 
     it "can get member info" do

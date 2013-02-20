@@ -4,15 +4,15 @@ require 'bcrypt'
 module Alexandra
   module Core
     class Loan
-      attr_accessor :book_id, :from_date, :to_date, :date_returned
+      attr_accessor :library_book_id, :from_date, :to_date, :date_returned
 
       attr_writer :returned
 
-      def initialize(book_id, loan_period)
-        @book_id    = book_id
-        @from_date  = Date.today
-        @to_date    = @from_date + loan_period
-        @returned   = false
+      def initialize(library_book_id, loan_period)
+        @library_book_id    = library_book_id
+        @from_date          = Date.today
+        @to_date            = @from_date + loan_period
+        @returned           = false
       end
 
       def returned?
@@ -78,12 +78,13 @@ module Alexandra
         end
       end
 
-      def take(book_id, loan_period)
-        @loans << Loan.new(book_id, loan_period)
+      def take(library_book_id, loan_period)
+        @loans << Loan.new(library_book_id, loan_period)
       end
 
-      def return(book_id)
-        @loans.select { |loan| loan.book_id == book_id and not loan.returned? }.first.return
+      def return(library_book_id)
+        @loans.select { |loan| loan.library_book_id == library_book_id and not loan.returned? }.
+          first.return
       end
 
       def returned_loans

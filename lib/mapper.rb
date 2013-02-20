@@ -24,8 +24,8 @@ module Alexandra
         library
       end
 
-      def load_book(id)
-        db_book = DB::Book.get(id)
+      def load_book(library_id)
+        db_book = DB::Book.last(library_id: library_id)
         return nil if not db_book
 
         book = Core::Book.new nil, nil, nil, nil
@@ -35,26 +35,26 @@ module Alexandra
         book
       end
 
-      def load_administrator(id)
-        db_admin = DB::Administrator.get(id)
+      def load_administrator(username)
+        db_admin = DB::Administrator.last(username: username)
         return nil if not db_admin
 
-        admin = Core::Administrator.new nil, "", nil
+        admin = Core::Administrator.new "", nil
 
         db_to_core db_admin, admin
 
         admin
       end
 
-      def load_member(id)
-        db_member = DB::Member.get(id)
+      def load_member(username)
+        db_member = DB::Member.last(username: username)
         return nil if not db_member
 
-        member = Core::Member.new nil, "", nil, nil
+        member = Core::Member.new "", nil, nil
 
         db_to_core db_member, member
 
-        member.loans    = load_loans id
+        member.loans    = load_loans db_member.id
 
         member
       end
@@ -93,7 +93,7 @@ module Alexandra
       end
 
       def save_book(book)
-        db_book = DB::Book.get(book.id)
+        db_book = DB::Book.last(library_id: book.library_id)
         db_book = DB::Book.new if not db_book
 
         core_to_db book, db_book
@@ -102,27 +102,27 @@ module Alexandra
       end
 
       def save_member(member)
-        db_member = DB::Member.get(member.id)
+        db_member = DB::Member.last(username: member.username)
         db_member = DB::Member.new if not db_member
 
         core_to_db member, db_member
         db_member.save
 
-        member.loans.each { |loan| save_loan loan, member.id }
+        member.loans.each { |loan| save_loan loan, db_member.id }
       end
 
       def save_loan(loan, member_id)
-        db_loan = DB::Loan.last(book_id: loan.book_id, member_id: member_id)
+        db_loan = DB::Loan.last(library_book_id: loan.library_book_id, member_id: member_id)
         db_loan = DB::Loan.new if not db_loan
 
         core_to_db loan, db_loan
-        db_loan.book   = DB::Book.get(loan.book_id)
+        db_loan.book   = DB::Book.last(library_id: loan.library_book_id)
         db_loan.member = DB::Member.get(member_id)
         db_loan.save
       end
 
       def save_administrator(administrator)
-        db_administrator = DB::Administrator.get(administrator.id)
+        db_administrator = DB::Administrator.last(username: administrator.username)
         db_administrator = DB::Administrator.new if not db_administrator
 
         core_to_db administrator, db_administrator

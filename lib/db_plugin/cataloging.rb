@@ -9,6 +9,7 @@ module Alexandra
     class Book
       include DataMapper::Resource
       property :id,             Serial
+      property :library_id,     Integer, required: true, unique:  true
       property :isbn,           Integer
       property :title,          String,  required: true
       property :series,         String
