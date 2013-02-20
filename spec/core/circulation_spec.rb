@@ -2,15 +2,8 @@ require 'spec_helper'
 require 'core/circulation'
 
 module Alexandra::Core
-  describe "Core::Loans" do
-    let :game_of_thrones do
-      Book.new 2,
-               "A Game of Thrones",
-               "George R.R. Martin",
-               31
-    end
-
-    let(:loan) { Loan.new game_of_thrones }
+  describe "Core::Loan" do
+    let(:loan) { Loan.new 2, 31 }
 
     it "can get info from loan" do
       loan.from_date.should     eq Date.today
@@ -40,19 +33,6 @@ module Alexandra::Core
   end
 
   describe "Core::Member" do
-    let :game_of_thrones do
-      Book.new 2,
-               "A Game of Thrones",
-               "George R.R. Martin",
-               31
-    end
-
-    let :storm_of_swords do
-      Book.new 3,
-               "A Storm of Swords",
-               "George R.R. Martin",
-               31
-    end
 
     let(:member) { Member.new 0, "testuser", "testuser@testhost.com", "123456" }
 
@@ -100,27 +80,27 @@ module Alexandra::Core
     end
 
     it "can get loans list" do
-      member.take game_of_thrones
-      member.take storm_of_swords
+      member.take 2, 31
+      member.take 3, 31
 
       compare_loans member.loans[0], 2, Date.today, Date.today + 31
       compare_loans member.loans[1], 3, Date.today, Date.today + 31
     end
 
     it "can get returned loans" do
-      member.take game_of_thrones
-      member.take storm_of_swords
+      member.take 2, 31
+      member.take 3, 31
 
-      member.return game_of_thrones
+      member.return 2 
 
       compare_loans member.returned_loans.first, 2, Date.today, Date.today + 31
     end
 
     it "can get unreturned loans" do
-      member.take game_of_thrones
-      member.take storm_of_swords
+      member.take 2, 31 
+      member.take 3, 31
 
-      member.return game_of_thrones
+      member.return 2
 
       compare_loans member.unreturned_loans.first, 3, Date.today, Date.today + 31
     end
