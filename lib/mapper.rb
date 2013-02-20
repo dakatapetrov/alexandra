@@ -10,6 +10,7 @@ module Alexandra
         when hash[:book]          then load_book          hash[:book]
         when hash[:member]        then load_member        hash[:member]
         when hash[:administrator] then load_administrator hash[:administrator]
+        when hash[:catalog]       then load_catalog
         end
       end
 
@@ -19,6 +20,14 @@ module Alexandra
         when Core::Book          then save_book          object
         when Core::Member        then save_member        object
         when Core::Administrator then save_administrator object
+        end
+      end
+
+      def delete(hash)
+        case
+        when hash[:book]          then delete_book          hash[:book]
+        when hash[:member]        then delete_member        hash[:member]
+        when hash[:administrator] then delete_administrator hash[:administrator]
         end
       end
 
@@ -85,6 +94,10 @@ module Alexandra
         loans
       end
 
+      def load_catalog
+        Core::Catalog.new DB::Book.all.map { |book| load_book book.library_id }
+      end
+
       def save_library(library)
         db_library = DB::Library.get(1)
         db_library = DB::Library.new if not db_library
@@ -143,6 +156,19 @@ module Alexandra
           core_object.instance_variable_set variable,
                                             db_object.attribute_get(variable.to_s.gsub(/\@/, "").to_sym)
         end
+      end
+
+      def delete_book(library_id)
+        DB::Book.last(library_id: library_id).destroy
+      end
+
+      def delete_member(username)
+        DB::Member.last(username: username).destroy
+      end
+
+      def delete_administrator(username)
+        DB::Administrator.last(username: username).destroy
+      end
       end
     end
   end
