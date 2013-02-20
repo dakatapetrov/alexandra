@@ -13,6 +13,17 @@ module Alexandra
         end
       end
 
+      def save(object)
+        case object
+        when Core::Library       then save_library       object
+        when Core::Book          then save_book          object
+        when Core::Member        then save_member        object
+        when Core::Administrator then save_administrator object
+        end
+      end
+
+      private
+
       def load_library
         db_library = DB::Library.get(1)
         return nil if not db_library
@@ -74,15 +85,6 @@ module Alexandra
         loans
       end
 
-      def save(object)
-        case object
-        when Core::Library       then save_library       object
-        when Core::Book          then save_book          object
-        when Core::Member        then save_member        object
-        when Core::Administrator then save_administrator object
-        end
-      end
-
       def save_library(library)
         db_library = DB::Library.get(1)
         db_library = DB::Library.new if not db_library
@@ -128,8 +130,6 @@ module Alexandra
         core_to_db administrator, db_administrator
         db_administrator.save
       end
-
-      private
 
       def core_to_db(core_object, db_object)
         core_object.instance_variables.each do |variable|
