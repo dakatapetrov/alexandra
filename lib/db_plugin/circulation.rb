@@ -3,6 +3,7 @@ require 'dm-migrations'
 require 'dm-types'
 require 'date'
 require 'bcrypt'
+require_relative 'cataloging'
 
 module Alexandra
   module DB
@@ -13,7 +14,6 @@ module Alexandra
       include DataMapper::Resource
 
       property :id,            Serial
-      property :book_id,       Integer, required: true
       property :from_date,     Date,    required: true, default: Date.today
       property :to_date,       Date,    required: true
       property :returned,      Boolean, required: true, default: false
@@ -29,8 +29,8 @@ module Alexandra
       property :id,              Serial
       property :username,        String,     required: true, unique:  true
       property :email,           String,     required: true, unique:  true
+      property :password,        BCryptHash, required: true
       property :email_confirmed, Boolean,    required: true, default: false
-      property :password,        BCryptHash
 
       has n, :loans
     end
