@@ -169,7 +169,6 @@ module Alexandra
       def delete_administrator(username)
         DB::Administrator.last(username: username).destroy
       end
-      end
     end
   end
 end
