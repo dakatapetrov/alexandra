@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'core/circulation'
+require 'core'
 
 module Alexandra::Core
   describe "Core::Loan" do
@@ -90,13 +90,13 @@ module Alexandra::Core
       member.take 2, 31
       member.take 3, 31
 
-      member.return 2 
+      member.return 2
 
       compare_loans member.returned_loans.first, 2, Date.today, Date.today + 31
     end
 
     it "can get unreturned loans" do
-      member.take 2, 31 
+      member.take 2, 31
       member.take 3, 31
 
       member.return 2
