@@ -1,10 +1,11 @@
 require 'dm-core'
 require 'dm-migrations'
+require 'dm-types'
+require 'bcrypt'
 
 module Alexandra
   module DB
-
-    DataMapper::setup(:default, "sqlite3:///home/dakata/Documents/Development/Ruby/alexandra/db/development.db")
+    DataMapper::setup(:default, DATABASE_PATH)
 
     class Book
       include DataMapper::Resource
@@ -26,6 +27,5 @@ module Alexandra
     end
 
     DataMapper.finalize.auto_upgrade!
-
   end
 end

@@ -1,15 +1,12 @@
 require 'dm-core'
 require 'dm-migrations'
 require 'dm-types'
-require 'date'
 require 'bcrypt'
-require_relative 'cataloging'
 
 module Alexandra
   module DB
+    DataMapper::setup(:default, DATABASE_PATH)
 
-    DataMapper::setup(:default, "sqlite3:///home/dakata/Documents/Development/Ruby/alexandra/db/development.db")
-    
     class Loan
       include DataMapper::Resource
 
@@ -23,7 +20,7 @@ module Alexandra
       belongs_to :member
       belongs_to :book
     end
-    
+
     class Member
       include DataMapper::Resource
 
@@ -36,7 +33,7 @@ module Alexandra
 
       has n, :loans
     end
-    
+
     DataMapper.finalize.auto_upgrade!
 
   end

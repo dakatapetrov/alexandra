@@ -1,0 +1,1 @@
+DATABASE_PATH = "sqlite3:///home/dakata/Documents/Development/Ruby/alexandra/db/development.db"
