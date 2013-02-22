@@ -30,8 +30,10 @@
 		<% end %>
 	</dl>
 </section>
+<% if admin? %>
 <section class="admin">
-	<a href="" class="button">loan</a>
+	<a href="<%= @book.library_id %>/loan" class="button">loan</a>
 	<a href="<%= @book.library_id %>/edit" class="button">edit</a>
 	<a href="<%= @book.library_id %>/delete" class="button">delete</a>
 </section>
+<% end %>

@@ -1,0 +1,21 @@
+<% if defined? failure %>
+    <div class="error">
+        <%= failure %>
+    </div>
+
+<% elsif defined? success %>
+    <div class="success">
+        <%= success %>
+    </div>
+<% end %>
+
+<section id="loan">
+	<form action="/book/<%= @book.library_id %>/loan" method="post">
+		<h1>loan <%= @book.title %></h1>
+		<label>
+            Loan to: <br /> <input type="text" name="username" placeholder="username" />
+        </label>
+		<input type="submit" value="loan" />
+		<a href="/book/<%= @book.library_id %>" class="button">cancel</a>
+	</form>
+</section>
