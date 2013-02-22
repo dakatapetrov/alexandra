@@ -14,7 +14,7 @@ module Alexandra
     HELPERS     = 'sinatra/helpers'
     PUBLIC      = 'sinatra/public'
 
-    DATABASE_PATH = "sqlite3:///home/dakata/Documents/Development/Ruby/alexandra/db/development.db"
+    DATABASE_PATH = "sqlite3://#{File.join File.dirname(__FILE__), 'db/development.db'}"
   end
 end
 
