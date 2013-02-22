@@ -1,6 +1,6 @@
 <section id="delete">
 	<form action="/user/<%= @user.username %>/delete" method="post">
-		<h1>Are you sure you want to delete user <%= @user.username %></h1>
+		<h1>Delete user <%= @user.username %>?</h1>
 		<input type="submit" value="delete" />
 		<a href="/user/<%= @user.username %>" class="button">cancel</a>
 	</form>

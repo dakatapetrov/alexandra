@@ -19,5 +19,25 @@ class AlexandraMain < Sinatra::Base
     def escape(text)
       CGI.escapeHTML(text)
     end
+
+    def update_attributes(object, keys)
+      keys.each do |key|
+        if params[key].to_s.empty?
+          object.attribute_set key, nil
+        else
+          object.attribute_set key, params[key]
+        end
+      end
+    end
+
+    def update_attributes_int(object, keys)
+      keys.each do |key|
+        if params[key].to_s.empty?
+          object.attribute_set key, nil
+        else
+          object.attribute_set key, params[key].to_i
+        end
+      end
+    end
   end
 end
