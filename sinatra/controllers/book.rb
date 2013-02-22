@@ -44,6 +44,39 @@ class AlexandraMain < Sinatra::Base
     end
   end
 
+  post '/book/:library_id/loan' do
+    member = Alexandra::DB::Member.last username:   params[:username]
+    @book  = Alexandra::DB::Book.last   library_id: params[:library_id].to_i
+
+    if not @book.free
+      erb :book_loan, locals: { failure: "Book already loaned!" }
+    elsif not member
+      erb :book_loan, locals: { failure: "Bad username!" }
+    else
+      loan                 = Alexandra::DB::Loan.new
+      loan.member          = member
+      loan.book            = @book
+      loan.to_date         = Date.today + @book.loan_period
+      loan.library_book_id = @book.library_id
+      loan.save
+
+      @book.free = false
+      @book.save
+
+      erb :book_loan, locals: { success: "Book loaned successfully!" }
+    end
+  end
+
+  get '/book/:library_id/loan' do
+    protected!
+
+    @book = Alexandra::DB::Book.last library_id: params[:library_id]
+
+    if @book then erb :book_loan
+    else not_found
+    end
+  end
+
   post '/book/:library_id/edit' do
     keys          = [:title, :author, :loan_period]
     to_update     = [:title, :author, :series, :publisher, :genre, :language]
