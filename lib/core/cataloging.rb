@@ -46,6 +46,10 @@ module Alexandra
         @books.each(&block)
       end
 
+      def empty?
+        @books.empty?
+      end
+
       def add(new_book)
         raise BookIDExists if @books.any? { |book| book.library_id == new_book.library_id }
         @books << new_book
