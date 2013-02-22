@@ -1,4 +1,4 @@
-<section id="loans">
+<section id="book_list">
     <h1>current loans <span class="count">(<%= @unreturned.count %>)</span></h1>
     <ul>
         <% @unreturned.each do |loan| %>
@@ -7,7 +7,7 @@
         <% end %>
     </ul>
 </section>
-<section id="loans">
+<section id="book_list">
     <h1>returned loans <span class="count">(<%= @returned.count %>)</span></h1>
     <ul>
         <% @returned.each do |loan| %>

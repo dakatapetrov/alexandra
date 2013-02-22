@@ -106,8 +106,8 @@ class AlexandraMain < Sinatra::Base
     @user = Alexandra::DB::Member.last username: params[:username]
 
     if @user
-      @returned   = @user.loans.select { |loan| loan.returned }.reverse
-      @unreturned = @user.loans.reject { |loan| loan.returned }.reverse
+      @returned   = @user.loans.all(returned: true, order: :date_returned.desc)
+      @unreturned = @user.loans.all(returned: false, order: :to_date.asc)
       erb :user_loans
     else not_found
     end
