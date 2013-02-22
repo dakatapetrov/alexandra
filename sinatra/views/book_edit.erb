@@ -37,6 +37,10 @@
 				Series ID: <br />
 				<input type="text" name="series_id" value="<%= @book.series_id %>" />
 			</label>
+			<label>
+				Loanable:
+				<input type="checkbox" name="loanable" <% if @book.loanable %>checked="checked"<% end %> />
+			</label>
 		</div>
 		<div class="column">
 			<label>
@@ -63,25 +67,12 @@
 				Loan Period: <br />
 				<input type="text" name="loan_period" value="<%= @book.loan_period %>" />
 			</label>
-		</div>
-		<div class="clear">
-			<label>
-				Loanable:
-					<% if @book.loanable %>
-						<input type="checkbox" name="loanable" checked="checked" />
-					<% else %>
-						<input type="checkbox" name="loanable" />
-					<% end %>
-			</label>
 			<label>
 				Free:
-					<% if @book.free %>
-						<input type="checkbox" name="free" checked="checked" />
-					<% else %>
-						<input type="checkbox" name="free" />
-					<% end %>
+				<input type="checkbox" name="free" <% if @book.free %>checked="checked"<% end %> />
 			</label>
-			<%= @free %>
+		</div>
+		<div class="clear">
 			<input type="submit" value="Edit" />
 		</div>
 	</form>

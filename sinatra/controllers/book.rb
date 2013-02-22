@@ -10,7 +10,7 @@ class AlexandraMain < Sinatra::Base
     to_update     = [:title, :author, :series, :publisher, :genre, :language, :loanable]
     to_update_int = [:library_id, :loan_period, :isbn, :series_id, :year_published, :page_count]
 
-    params[:loanable] = params[:loanable] == "on"
+    params[:loanable] = params[:loanable].eq? "on"
 
     if keys.any? { |key| params[key].to_s.empty? }
       erb :add_book, locals: { failure: "Fields marked with * are required!"}
@@ -91,8 +91,8 @@ class AlexandraMain < Sinatra::Base
   post '/book/:library_id/edit' do
     protected!
 
-    params[:loanable] = params[:loanable] == "on"
-    params[:free]     = params[:free]     == "on"
+    params[:loanable] = params[:loanable].eq? "on"
+    params[:free]     = params[:free].eq?      "on"
 
     keys          = [:title, :author, :loan_period]
     to_update     = [:title, :author, :series, :publisher, :genre, :language, :free, :loanable]
@@ -162,6 +162,8 @@ class AlexandraMain < Sinatra::Base
 
     @book = Alexandra::DB::Book.last library_id: params[:library_id]
 
-    erb :book
+    if @book then erb :book
+    else not_found
+    end
   end
 end
