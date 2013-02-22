@@ -24,8 +24,12 @@ class AlexandraMain < Sinatra::Base
 
     if keys.any? { |key| params[key].to_s.empty? }
       erb :admin_register, locals: { failure: "All fields required!" }
-    elsif params[:email] != params[:confirm_email]
+    elsif not valid_username? params[:username]
+      erb :admin_register, locals: { failure: "Ivalid username!" }
+    elsif Alexandra::DB::Administrator.last username: params[:username]
       erb :admin_register, locals: { failure: "Username taken!" }
+    elsif not valid_password? params[:password]
+      erb :admin_register, locals: { failure: "Password too short!"}
     elsif params[:password] != params[:confirm_password]
       erb :admin_register, locals: { failure: "Password did not match!" }
     else
@@ -50,6 +54,10 @@ class AlexandraMain < Sinatra::Base
 
     if keys.any? { |key| params[key].to_s.empty? }
       erb :first_use, locals: { failure: "All fields required!" }
+    elsif not valid_username? params[:username]
+      erb :first_register, locals: { failure: "Ivalid username!" }
+    elsif not valid_password? params[:password]
+      erb :first, locals: { failure: "Password too short!"}
     elsif params[:password] != params[:confirm_password]
       erb :first_use, locals: { failure: "Password did not match!" }
     else

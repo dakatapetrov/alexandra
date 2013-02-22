@@ -20,14 +20,20 @@ class AlexandraMain < Sinatra::Base
 
     if keys.any? { |key| params[key].to_s.empty? }
       erb :user_register, locals: { failure: "All fields required!" }
+    elsif not valid_username? params[:username]
+      erb :user_register, locals: { failure: "Ivalid username!" }
     elsif Alexandra::DB::Member.last username: params[:username]
       erb :user_register, locals: { failure: "Username taken!" }
-    elsif Alexandra::DB::Member.last email: params[:email]
-      erb :user_register, locals: { failure: "Email taken!" }
+    elsif not valid_password? params[:password]
+      erb :user_register, locals: { failure: "Password too short!"}
     elsif params[:password] != params[:confirm_password]
       erb :user_register, locals: { failure: "Password did not match!" }
     elsif params[:email] != params[:confirm_email]
       erb :user_register, locals: { failure: "Email did not match!" }
+    elsif not valid_email? params[:email]
+      erb :user_register, locals: { failure: "Ivalid e-mail!" }
+    elsif Alexandra::DB::Member.last email: params[:email]
+      erb :user_register, locals: { failure: "Email taken!" }
     else
       user = Alexandra::DB::Member.new
       update_attributes user, keys
@@ -67,8 +73,12 @@ class AlexandraMain < Sinatra::Base
       erb :user_edit, locals: { failure: "Wrong password!" }
     elsif params[:password] != params[:confirm_password]
       erb :user_edit, locals: { failure: "Passwords did not match!" }
+    elsif not valid_password? params[:password]
+      erb :user_edit, locals: { failure: "Password too short!"}
     elsif params[:email] != params[:confirm_email]
-      erb :user_redit, locals: { failure: "Email did not match!" }
+      erb :user_edit, locals: { failure: "Email did not match!" }
+    elsif not valid_email? params[:email]
+      erb :user_edit, locals: { failure: "Ivalid e-mail!" }
     elsif params[:email] != @user.email and Alexandra::DB::Member.last email: params[:email]
       erb :user_edit, locals: { failure: "Email taken!" }
     else
