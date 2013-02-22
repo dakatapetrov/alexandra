@@ -16,6 +16,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/admin/register' do
+    protected!
+
     keys = [:username, :password]
 
     if keys.any? { |key| params[key].to_s.empty? }

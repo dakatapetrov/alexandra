@@ -4,6 +4,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/book/add' do
+    protected!
+
     keys          = [:library_id, :title, :author, :loan_period]
     to_update     = [:title, :author, :series, :publisher, :genre, :language]
     to_update_int = [:library_id, :loan_period, :isbn, :series_id, :year_published, :page_count]
@@ -26,10 +28,13 @@ class AlexandraMain < Sinatra::Base
 
   get '/book/add' do
     protected!
+
     erb :add_book
   end
 
   post '/book/:library_id/delete' do
+    protected!
+
     Alexandra::DB::Book.last(library_id: params[:library_id]).destroy
     redirect '/'
   end
@@ -45,6 +50,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/book/:library_id/loan' do
+    protected!
+
     member = Alexandra::DB::Member.last username:   params[:username]
     @book  = Alexandra::DB::Book.last   library_id: params[:library_id].to_i
 
@@ -78,6 +85,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/book/:library_id/edit' do
+    protected!
+
     keys          = [:title, :author, :loan_period]
     to_update     = [:title, :author, :series, :publisher, :genre, :language]
     to_update_int = [:loan_period, :isbn, :series_id, :year_published, :page_count]
@@ -143,6 +152,7 @@ class AlexandraMain < Sinatra::Base
 
   get '/book/:library_id' do
     private!
+
     @book = Alexandra::DB::Book.last library_id: params[:library_id]
 
     erb :book

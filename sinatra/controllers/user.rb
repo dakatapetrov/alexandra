@@ -46,8 +46,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/user/:username' do
-    private!
-    redirect '/book/search' if session[:username] != params[:username] and session[:level] != "admin"
+    user_specific! params[:username]
+
     @user = Alexandra::DB::Member.last username: params[:username]
     if not @user then not_found
     else erb :user
@@ -55,6 +55,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/user/:username/edit' do
+    user_specific! params[:username]
+
     keys      = [:email, :old_password]
     to_update = [:email, :password]
     @user = Alexandra::DB::Member.last username: params[:username]
@@ -77,8 +79,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/user/:username/edit' do
-    private!
-    redirect '/book/search' if session[:username] != params[:username] and session[:level] != "admin"
+    user_specific! params[:username]
+
     @user = Alexandra::DB::Member.last username: params[:username]
     if not @user then not_found
     else erb :user_edit
@@ -86,6 +88,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/user/:username/delete' do
+    protected!
+
     Alexandra::DB::Member.last(username: params[:username]).destroy
     redirect '/'
   end
@@ -101,7 +105,7 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/user/:username/loans' do
-    private!
+    user_specific! params[:username]
 
     @user = Alexandra::DB::Member.last username: params[:username]
 
