@@ -1,3 +1,14 @@
+<% if defined? failure %>
+    <div class="error">
+        <%= failure %>
+    </div>
+
+<% elsif defined? success %>
+    <div class="success">
+        <%= success %>
+    </div>
+<% end %>
+
 <section id="extend">
 	<form action="/loan/<%= @loan.id %>/extend" method="post">
 		<h1>extend loan</h1>
