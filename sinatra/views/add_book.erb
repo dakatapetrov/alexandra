@@ -1,0 +1,74 @@
+<% if defined? failure %>
+    <div class="error">
+        <%= failure %>
+    </div>
+
+<% elsif defined? success %>
+    <div class="success">
+        <%= success %>
+    </div>
+<% end %>
+
+<section id="add">
+	<h1>add book</h1>
+	<form action="/book/add" method="post">
+		<div class="column">
+			<label>
+				ID in library:<br />
+				<input type="text" name="library_id" placeholder="439" />
+			</label>
+			<label>
+				ISBN: <br />
+				<input type="text" name="isbn" placeholder="9780553588484" />
+			</label>
+			<label>
+				Title: <br />
+				<input type="text" name="title" placeholder="A Game of Thrones" />
+			</label>
+			<label>
+				Author: <br />
+				<input type="text" name="author" placeholder="George R.R. Martin" />
+			</label>
+			<label>
+				Series: <br />
+				<input type="text" name="series" placeholder="A Song of Ice and Fire" />
+			</label>
+			<label>
+				Series ID: <br />
+				<input type="text" name="series_id" placeholder="18" />
+			</label>
+		</div>
+		<div class="column">
+			<label>
+				Published In: <br />
+				<input type="text" name="year_published" placeholder="2005 (year only)" />
+			</label>
+			<label>
+				Publisher: <br />
+				<input type="text" name="publisher" placeholder="Spectra" />
+			</label>
+			<label>
+				Page Count: <br />
+				<input type="text" name="page_count" placeholder="864 (number only)" />
+			</label>
+			<label>
+				Genre: <br />
+				<input type="text" name="genre" placeholder="Fantasy" />
+			</label>
+			<label>
+				Language: <br />
+				<input type="text" name="language" placeholder="English" />
+			</label>
+			<label>
+				Loan Period: <br />
+				<input type="text" name="loan_period" placeholder="30 (in days)" />
+			</label>
+		</div>
+		<div class="clear">
+			<label>
+				Loanable: <input type="checkbox" name="loanable" checked="checked" />
+			</label>
+			<input type="submit" value="Add" />
+		</div>
+	</form>
+</section>
