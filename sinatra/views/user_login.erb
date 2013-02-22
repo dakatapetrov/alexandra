@@ -1,0 +1,18 @@
+<% if defined? failure %>
+    <div class="error">
+        <%= failure %>
+    </div>
+<% end %>
+
+<section>
+	<h1>login</h1>
+	<form action="/login" method="post">
+		<label>
+			Username: <br /> <input type="text" name="username" />
+		</label>
+		<label>
+			Password: <br /> <input type="password" name="password" />
+		</label>
+		<input type="submit" value="Login" />
+	</form>
+</section>

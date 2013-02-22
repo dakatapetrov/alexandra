@@ -1,0 +1,12 @@
+<section id="user">
+    <h1><%= @user.username %></h1>
+    <dl>
+        <dt>E-mail:</dt>
+        <dd><%= @user.email %></dd>
+    </dl>
+</section>
+<section class="admin">
+	<a href="<%= @user.username %>/history" class="button">history</a>
+	<a href="<%= @user.username %>/edit" class="button">edit</a>
+	<a href="<%= @user.username %>/delete" class="button">delete</a>
+</section>
