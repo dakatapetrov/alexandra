@@ -1,5 +1,9 @@
 class AlexandraMain < Sinatra::Base
   helpers do
+    def first_use?
+      Alexandra::DB::Administrator.all.length == 0
+    end
+
     def loggedin?
       not session[:username].nil?
     end

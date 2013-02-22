@@ -11,6 +11,8 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/admin/login' do
+    redirect '/admin/first_use' if first_use?
+
     redirect '/book/search' if session[:username]
     erb :admin_login
   end
@@ -27,9 +29,8 @@ class AlexandraMain < Sinatra::Base
     elsif params[:password] != params[:confirm_password]
       erb :admin_register, locals: { failure: "Password did not match!" }
     else
-      admin = Alexandra::DB::Member.new
+      admin = Alexandra::DB::Administrator.new
       admin.username = params[:username]
-      admin.email    = params[:email]
       admin.password = params[:password]
       admin.save
       erb :admin_register, locals: { succes: "Administrator registration successfull!" }
@@ -37,7 +38,37 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/admin/register' do
+    redirect '/admin/first_use' if first_use?
     protected!
     erb :admin_register
+  end
+
+  post '/admin/first_use' do
+    redirect '/admin/login' unless first_use?
+
+    keys = [:username, :password]
+
+    if keys.any? { |key| params[key].to_s.empty? }
+      erb :first_use, locals: { failure: "All fields required!" }
+    elsif params[:password] != params[:confirm_password]
+      erb :first_use, locals: { failure: "Password did not match!" }
+    else
+      admin = Alexandra::DB::Administrator.new
+      admin.username = params[:username]
+      admin.password = params[:password]
+      admin.save
+
+      redirect '/admin/login'
+    end
+  end
+
+  get '/admin/first_use' do
+    redirect '/admin/login' unless first_use?
+    erb :first_use
+  end
+
+  get '/admin' do
+    redirect '/admin/first_use' if first_use?
+    redirect '/admin/login'
   end
 end
