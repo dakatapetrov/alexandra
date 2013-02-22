@@ -66,9 +66,22 @@
 		</div>
 		<div class="clear">
 			<label>
-				Loanable: <input type="checkbox" name="loanable" checked="checked" />
+				Loanable:
+					<% if @book.loanable %>
+						<input type="checkbox" name="loanable" checked="checked" />
+					<% else %>
+						<input type="checkbox" name="loanable" />
+					<% end %>
 			</label>
-			<input type="hidden" name="id" value="<%= @book.id %>" />
+			<label>
+				Free:
+					<% if @book.free %>
+						<input type="checkbox" name="free" checked="checked" />
+					<% else %>
+						<input type="checkbox" name="free" />
+					<% end %>
+			</label>
+			<%= @free %>
 			<input type="submit" value="Edit" />
 		</div>
 	</form>

@@ -7,8 +7,10 @@ class AlexandraMain < Sinatra::Base
     protected!
 
     keys          = [:library_id, :title, :author, :loan_period]
-    to_update     = [:title, :author, :series, :publisher, :genre, :language]
+    to_update     = [:title, :author, :series, :publisher, :genre, :language, :loanable]
     to_update_int = [:library_id, :loan_period, :isbn, :series_id, :year_published, :page_count]
+
+    params[:loanable] = params[:loanable] == "on"
 
     if keys.any? { |key| params[key].to_s.empty? }
       erb :add_book, locals: { failure: "Fields marked with * are required!"}
@@ -55,7 +57,9 @@ class AlexandraMain < Sinatra::Base
     member = Alexandra::DB::Member.last username:   params[:username]
     @book  = Alexandra::DB::Book.last   library_id: params[:library_id].to_i
 
-    if not @book.free
+    if not @book.loanable
+      erb :book_loan, locals: { failure: "Book is not loanable!" }
+    elsif not @book.free
       erb :book_loan, locals: { failure: "Book already loaned!" }
     elsif not member
       erb :book_loan, locals: { failure: "Bad username!" }
@@ -87,8 +91,11 @@ class AlexandraMain < Sinatra::Base
   post '/book/:library_id/edit' do
     protected!
 
+    params[:loanable] = params[:loanable] == "on"
+    params[:free]     = params[:free]     == "on"
+
     keys          = [:title, :author, :loan_period]
-    to_update     = [:title, :author, :series, :publisher, :genre, :language]
+    to_update     = [:title, :author, :series, :publisher, :genre, :language, :free, :loanable]
     to_update_int = [:loan_period, :isbn, :series_id, :year_published, :page_count]
 
     @book = Alexandra::DB::Book.last library_id: params[:library_id]
