@@ -1,0 +1,26 @@
+<% if defined? failure %>
+    <div class="error">
+        <%= failure %>
+    </div>
+
+<% elsif defined? success %>
+    <div class="success">
+        <%= success %>
+    </div>
+<% end %>
+
+<section id="register">
+    <h1>register</h1>
+	<form action="/admin/register" method="post">
+		<label>
+            Username: <br /> <input type="text" name="username" />
+        </label>
+        <label>
+            Password: <br /> <input type="password" name="password" />
+        </label>
+        <label>
+            Confirm Password: <br /> <input type="password" name="confirm_password" />
+        </label>
+		<input type="submit" value="Register">
+	</form>
+</section>
