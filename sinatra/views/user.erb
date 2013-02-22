@@ -8,5 +8,7 @@
 <section class="admin">
 	<a href="<%= @user.username %>/loans" class="button">loans</a>
 	<a href="<%= @user.username %>/edit" class="button">edit</a>
+	<% if admin? %>
 	<a href="<%= @user.username %>/delete" class="button">delete</a>
+	<% end %>
 </section>
