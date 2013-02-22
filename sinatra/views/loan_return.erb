@@ -1,0 +1,7 @@
+<section id="return">
+	<form action="/loan/<%= @loan.id %>/return" method="post">
+		<h1>Return loan?</h1>
+		<input type="submit" value="return" />
+		<a href="/loan/<%= @loan.id %>" class="button">cancel</a>
+	</form>
+</section>

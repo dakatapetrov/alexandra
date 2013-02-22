@@ -1,0 +1,28 @@
+<section id="loan">
+	<% book = Alexandra::DB::Book.get @loan.book_id %>
+	<% user = Alexandra::DB::Member.get @loan.member_id %>
+    <h1><%= book.title %></h1>
+    <dl>
+        <dt>To user:</dt>
+        <dd><a href="/users/<%= user.username %>"><%= user.username %></a></dd>
+    </dl>
+    <dl>
+        <dt>From Date:</dt>
+        <dd><%= @loan.from_date %></dd>
+    </dl>
+    <dl>
+        <dt>To Date:</dt>
+        <dd><%= @loan.to_date %></dd>
+    </dl>
+    <% if @loan.returned %>
+    <dl>
+        <dt>Returned on:</dt>
+        <dd><%= @loan.to_date %></dd>
+    </dl>
+    <% end %>
+</section>
+<section class="admin">
+	<a href="<%= @loan.id %>/return" class="button">return</a>
+	<a href="<%= @loan.id %>/extend" class="button">extend</a>
+	<a href="<%= @loan.id %>/delete" class="button">delete</a>
+</section>

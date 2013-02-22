@@ -1,0 +1,7 @@
+<section id="delete">
+	<form action="/loan/<%= @loan.id %>/delete" method="post">
+		<h1>Delete loan?</h1>
+		<input type="submit" value="delete" />
+		<a href="/loan/<%= @loan.id %>" class="button">cancel</a>
+	</form>
+</section>

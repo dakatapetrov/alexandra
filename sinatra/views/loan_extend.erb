@@ -1,0 +1,10 @@
+<section id="extend">
+	<form action="/loan/<%= @loan.id %>/extend" method="post">
+		<h1>extend loan</h1>
+		<label>
+            Extend by: <br /> <input type="text" name="extend_by" placeholder="10 (in days)" />
+        </label>
+		<input type="submit" value="extend" />
+		<a href="/loan/<%= @loan.id %>" class="button">cancel</a>
+	</form>
+</section>
