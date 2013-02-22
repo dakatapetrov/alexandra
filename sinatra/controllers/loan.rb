@@ -13,6 +13,10 @@ class AlexandraMain < Sinatra::Base
     loan.date_returned = Date.today
     loan.save
 
+    book      = Alexandra::DB::Book.last library_id: loan.library_book_id
+    book.free = true
+    book.save
+
     redirect "/loan/#{params[:id]}"
   end
 

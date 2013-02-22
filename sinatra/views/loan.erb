@@ -17,12 +17,14 @@
     <% if @loan.returned %>
     <dl>
         <dt>Returned on:</dt>
-        <dd><%= @loan.to_date %></dd>
+        <dd><%= @loan.date_returned %></dd>
     </dl>
     <% end %>
 </section>
+<% if admin? %>
 <section class="admin">
 	<a href="<%= @loan.id %>/return" class="button">return</a>
 	<a href="<%= @loan.id %>/extend" class="button">extend</a>
 	<a href="<%= @loan.id %>/delete" class="button">delete</a>
 </section>
+<% end %>
