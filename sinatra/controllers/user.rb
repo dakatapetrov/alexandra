@@ -100,12 +100,15 @@ class AlexandraMain < Sinatra::Base
     end
   end
 
-  get '/user/:username/history' do
+  get '/user/:username/loans' do
     private!
 
     @user = Alexandra::DB::Member.last username: params[:username]
 
-    if @user then erb :user_history
+    if @user
+      @returned   = @user.loans.select { |loan| loan.returned }.reverse
+      @unreturned = @user.loans.reject { |loan| loan.returned }.reverse
+      erb :user_loans
     else not_found
     end
   end

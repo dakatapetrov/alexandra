@@ -1,0 +1,18 @@
+<section id="loans">
+    <h1>current loans <span class="count">(<%= @unreturned.count %>)</span></h1>
+    <ul>
+        <% @unreturned.each do |loan| %>
+            <% book = Alexandra::DB::Book.get(loan.book_id) %>
+            <li><a href="/loan/<%= loan.id %>"><%= book.title %> untill <%= loan.to_date %></a></li>
+        <% end %>
+    </ul>
+</section>
+<section id="loans">
+    <h1>returned loans <span class="count">(<%= @returned.count %>)</span></h1>
+    <ul>
+        <% @returned.each do |loan| %>
+            <% book = Alexandra::DB::Book.get(loan.book_id) %>
+            <li><a href="/loan/<%= loan.id %>"><%= book.title %></a></li>
+        <% end %>
+    </ul>
+</section>
