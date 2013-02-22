@@ -1,0 +1,8 @@
+<section id="book_list">
+	<h1>users <span class="count">(<%= @users.count %>)</span></h1>
+	<ul>
+		<% @users.each do |user| %>
+			<li><a href="/user/<%= user.username %>"><%= user.username%></a></li>
+		<% end %>
+	</ul>
+</section>

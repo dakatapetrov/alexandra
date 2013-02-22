@@ -51,6 +51,16 @@ class AlexandraMain < Sinatra::Base
     redirect '/login'
   end
 
+  get '/user/list' do
+    protected!
+
+    @users = Alexandra::DB::Member.all
+
+    if @users then erb :user_list
+    else not_found
+    end
+  end
+
   get '/user/:username' do
     user_specific! params[:username]
 
