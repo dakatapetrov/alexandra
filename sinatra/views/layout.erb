@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title><%= 'Alexandra' %></title>
+	<meta charset="utf8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, height=device-height, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="/reset.css" rel="stylesheet" />
+	<link href="/style.css" rel="stylesheet" />
+</head>
+<body>
+	<nav>
+		<% if session[:username] %>
+			Hello, <a href='/user/<%= session[:username] %>'><%= session[:username] %></a>! | <a href='/logout'>Logout</a>
+		<% else %>
+			<a href='/login'>Login</a> | <a href='/register'>Signup</a>
+		<% end %>
+	</nav>
+	<header>
+		<hgroup>
+			<h1><a href="/">Alexandra</a></h1>
+			<h2>Integrated Library Sytem - Beta</h2>
+		</hgroup>
+	</header>
+	<% if session[:username] %>
+		<nav id="main_navigation">
+			<ul>
+				<li><a href="/book/list">all books</a></li>
+				<li><a href="/book/search">search</a></li>
+				<li><a href='/user/<%= session[:username] %>'>profile</a></li>
+			</ul>
+		</nav>
+	<% end %>
+	<%= yield %>
+
+	<footer>
+		<small>An app by <a href="https://github.com/dakatapetrov">Yordan Petrov</a>.</small>
+	</footer>
+</body>
+</html>
