@@ -1,0 +1,37 @@
+<section id="book">
+	<h1><%= @book.title %></h1>
+	<dl>
+		<dt>Author:</dt>
+		<dd><%= @book.author %></dd>
+
+		<% if @book.series %>
+			<dt>Series:</dt>
+			<dd><%= @book.series %></dd>
+		<% end %>
+
+		<% if @book.series %>
+			<dt>Year Published: </dt>
+			<dd><%= @book.year_published %></dd>
+		<% end %>
+
+		<% if @book.page_count %>
+			<dt>Page Count:</dt>
+			<dd><%= @book.page_count %></dd>
+		<% end %>
+
+		<% if @book.genre %>
+			<dt>Genre:</dt>
+			<dd><%= @book.genre %></dd>
+		<% end %>
+
+		<% if @book.language %>
+			<dt>Langauge:</dt>
+			<dd><%= @book.language %></dd>
+		<% end %>
+	</dl>
+</section>
+<section class="admin">
+	<a href="" class="button">loan</a>
+	<a href="<%= @book.library_id %>/edit" class="button">edit</a>
+	<a href="<%= @book.library_id %>/delete" class="button">delete</a>
+</section>

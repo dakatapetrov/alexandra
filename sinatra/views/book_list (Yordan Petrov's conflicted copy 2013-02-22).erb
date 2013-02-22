@@ -1,0 +1,10 @@
+<% if @books and not @books.empty? %>
+	<section id="book_list">
+		<h1>books</h1>
+		<ul>
+			<% @books.each do |book| %>
+				<li><a href="/book/<%= book.library_id %>"><%= book.title%> by <%= book.author %></a></li>
+			<% end %>
+		</ul>
+	</section>
+<% end %>

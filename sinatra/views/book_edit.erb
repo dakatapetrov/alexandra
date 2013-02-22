@@ -1,0 +1,75 @@
+<% if defined? failure %>
+    <div class="error">
+        <%= failure %>
+    </div>
+
+<% elsif defined? success %>
+    <div class="success">
+        <%= success %>
+    </div>
+<% end %>
+
+<section id="edit">
+	<h1>edit book</h1>
+	<form action="/book/<%= @book.library_id %>/edit" method="post">
+		<div class="column">
+			<label>
+				ID in library:<br />
+				<input type="text" name="library_id" value="<%= @book.library_id %>" disabled="disabled" />
+			</label>
+			<label>
+				ISBN: <br />
+				<input type="text" name="isbn" value="<%= @book.isbn %>" />
+			</label>
+			<label>
+				Title: <br />
+				<input type="text" name="title" value="<%= @book.title %>" />
+			</label>
+			<label>
+				Author: <br />
+				<input type="text" name="author" value="<%= @book.author %>" />
+			</label>
+			<label>
+				Series: <br />
+				<input type="text" name="series" value="<%= @book.series %>" />
+			</label>
+			<label>
+				Series ID: <br />
+				<input type="text" name="series_id" value="<%= @book.series_id %>" />
+			</label>
+		</div>
+		<div class="column">
+			<label>
+				Published In: <br />
+				<input type="text" name="year_published" value="<%= @book.year_published %>" />
+			</label>
+			<label>
+				Publisher: <br />
+				<input type="text" name="publisher" value="<%= @book.publisher %>" />
+			</label>
+			<label>
+				Page Count: <br />
+				<input type="text" name="page_count" value="<%= @book.page_count %>" />
+			</label>
+			<label>
+				Genre: <br />
+				<input type="text" name="genre" value="<%= @book.genre %>" />
+			</label>
+			<label>
+				Language: <br />
+				<input type="text" name="language" value="<%= @book.language %>" />
+			</label>
+			<label>
+				Loan Period: <br />
+				<input type="text" name="loan_period" value="<%= @book.loan_period %>" />
+			</label>
+		</div>
+		<div class="clear">
+			<label>
+				Loanable: <input type="checkbox" name="loanable" checked="checked" />
+			</label>
+			<input type="hidden" name="id" value="<%= @book.id %>" />
+			<input type="submit" value="Edit" />
+		</div>
+	</form>
+</section>

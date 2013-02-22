@@ -1,0 +1,31 @@
+<section id="search">
+	<h1>search</h1>
+	<form action="/book/search" method="post">
+		<input type="text" name="content" placeholder="Enter book title, author, series or ISBN&hellip;" />
+		<select name="by" id="search_by">
+			<option value="any" selected="selected">Any criteria</option>
+			<option value="title">Title</option>
+			<option value="author">Author</option>
+			<option value="series">Series</option>
+			<option value="isbn">ISBN</option>
+		</select>
+		<select name="method" id="method">
+			<option value="and" selected="selected">and</option>
+			<option value="or">or</option>
+		</select>
+		<input type="submit" value="Search" id="submit"/>
+	</form>
+</section>
+
+<% if @catalog and not @catalog.empty? %>
+	<section id="book_list">
+		<h1>results <span class="count">(<%= @catalog.count %>)</span></h1>
+		<ul>
+			<% @catalog.each do |book| %>
+				<li><a href="/book/<%= book.library_id %>"><%= book.title%> by <%= book.author %></a></li>
+			<% end %>
+		</ul>
+	</section>
+<% elsif @search %>
+	<div class="error">Sorry, no results found for <%= @search.join(" ") %>!</div>
+<% end %>
