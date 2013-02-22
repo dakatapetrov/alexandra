@@ -55,19 +55,22 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/user/:username/edit' do
-    keys  = [:email, :password]
+    keys      = [:email, :old_password]
+    to_update = [:email, :password]
     @user = Alexandra::DB::Member.last username: params[:username]
 
     if keys.any? { |key| params[key].to_s.empty? }
-      erb :user_register, locals: { failure: "All fields required!" }
+      erb :user_edit, locals: { failure: "All fields required!" }
     elsif @user.password != params[:old_password]
       erb :user_edit, locals: { failure: "Wrong password!" }
     elsif params[:password] != params[:confirm_password]
       erb :user_edit, locals: { failure: "Passwords did not match!" }
     elsif params[:email] != params[:confirm_email]
-      erb :user_register, locals: { failure: "Email did not match!" }
+      erb :user_redit, locals: { failure: "Email did not match!" }
+    elsif params[:email] != @user.email and Alexandra::DB::Member.last email: params[:email]
+      erb :user_edit, locals: { failure: "Email taken!" }
     else
-      update_attributes @user, keys
+      update_attributes @user, to_update
       @user.save
       erb :user_edit, locals: { success: "User updated successfully" }
     end
