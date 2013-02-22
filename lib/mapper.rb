@@ -1,6 +1,3 @@
-require_relative 'models'
-require_relative 'core'
-
 module Alexandra
   class Mapper
     class << self
