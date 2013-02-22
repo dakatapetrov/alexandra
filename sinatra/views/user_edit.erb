@@ -10,7 +10,7 @@
 <% end %>
 
 <section id="edit">
-    <h1>register</h1>
+    <h1>edit <%= @user.username %></h1>
 	<form action="/user/<%= @user.username %>/edit" method="post">
 		<label>
             Username: <br /> <input type="text" name="<%= @user.username %>" disabled="disabled" />
@@ -19,16 +19,16 @@
             Old Password: <br /> <input type="password" name="old_password" />
         </label>
 		<labeL>
-            Password: <br /> <input type="password" name="password" />
+            New Password: <br /> <input type="password" name="password" />
         </label>
         <label>
             Confirm password: <br /> <input type="password" name="confirm_password" />
         </label>
         <label>
-            E-mail: <br /> <input type="text" name="<%= @user.email %>" disabled="disabled" />
+            E-mail: <br /> <input type="text" name="<%= @user.email %>" />
         </label>
         <label>
-            Confirm e-mail: <br /> <input type="text" name="confirm_email" disabled="disavled" />
+            Confirm e-mail: <br /> <input type="text" name="confirm_email" />
         </label>
 		<input type="submit" value="edit" />
 	</form>

@@ -30,9 +30,7 @@ class AlexandraMain < Sinatra::Base
       erb :user_register, locals: { failure: "Email did not match!" }
     else
       user = Alexandra::DB::Member.new
-      user.username = params[:username]
-      user.email    = params[:email]
-      user.password = params[:password]
+      update_attributes user, keys
       user.save
       erb :user_register, locals: { succes: "User registration successfull!" }
     end
@@ -57,18 +55,21 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/user/:username/edit' do
+    keys  = [:email, :password]
     @user = Alexandra::DB::Member.last username: params[:username]
 
-    if @user.password != params[:old_password]
+    if keys.any? { |key| params[key].to_s.empty? }
+      erb :user_register, locals: { failure: "All fields required!" }
+    elsif @user.password != params[:old_password]
       erb :user_edit, locals: { failure: "Wrong password!" }
-    elsif params[:password].to_s.empty?
-      erb :user_edit, locals: { failure: "Password is required!" }
     elsif params[:password] != params[:confirm_password]
-      erb :user_edit, locals: { failure: "Passwords do not match!" }
+      erb :user_edit, locals: { failure: "Passwords did not match!" }
+    elsif params[:email] != params[:confirm_email]
+      erb :user_register, locals: { failure: "Email did not match!" }
     else
-      @user.password = params[:password]
+      update_attributes @user, keys
       @user.save
-      erb :user_edit, locals: { success: "Password updated successfully" }
+      erb :user_edit, locals: { success: "User updated successfully" }
     end
   end
 
