@@ -1,12 +1,5 @@
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-types'
-require 'bcrypt'
-
 module Alexandra
   module DB
-    DataMapper::setup(:default, DATABASE_PATH)
-
     class Book
       include DataMapper::Resource
       property :id,             Serial
@@ -25,7 +18,5 @@ module Alexandra
       property :loanable,       Boolean, required: true, default: true
       property :free,           Boolean, required: true, default: true
     end
-
-    DataMapper.finalize.auto_upgrade!
   end
 end

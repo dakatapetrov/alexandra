@@ -1,12 +1,5 @@
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-types'
-require 'bcrypt'
-
 module Alexandra
   module DB
-    DataMapper::setup(:default, DATABASE_PATH)
-
     class Loan
       include DataMapper::Resource
 
@@ -33,8 +26,5 @@ module Alexandra
 
       has n, :loans
     end
-
-    DataMapper.finalize.auto_upgrade!
-
   end
 end
