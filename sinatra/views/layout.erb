@@ -10,7 +10,8 @@
 <body>
 	<nav>
 		<% if session[:username] %>
-			Hello, <a href='/user/<%= session[:username] %>'><%= session[:username] %></a>! | <a href='/logout'>Logout</a>
+			Hello, <a href='/user/<%= escape session[:username] %>'>
+				<%= escape session[:username] %></a>! | <a href='/logout'>Logout</a>
 		<% else %>
 			<a href='/login'>Login</a> | <a href='/register'>Register</a>
 		<% end %>
@@ -26,8 +27,8 @@
 			<ul>
 				<li><a href="/book/list">all books</a></li>
 				<li><a href="/book/search">search</a></li>
-				<li><a href='/user/<%= session[:username] %>'>profile</a></li>
-				<li><a href='/user/<%= session[:username] %>/loans'>loans</a></li>
+				<li><a href='/user/<%= escape session[:username] %>'>profile</a></li>
+				<li><a href='/user/<%= escape session[:username] %>/loans'>loans</a></li>
 			</ul>
 		</nav>
 	<% elsif session[:level] == "admin" %>

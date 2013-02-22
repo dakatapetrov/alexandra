@@ -10,10 +10,11 @@
 <% end %>
 
 <section id="edit">
-    <h1>edit <%= @user.username %></h1>
-	<form action="/user/<%= @user.username %>/edit" method="post">
+    <h1>edit <%= escape @user.username %></h1>
+	<form action="/user/<%= escape @user.username %>/edit" method="post">
 		<label>
-            Username: <br /> <input type="text" name="<%= @user.username %>" disabled="disabled" />
+            Username: <br />
+            <input type="text" name="<%= escape @user.username %>" disabled="disabled" />
         </label>
         <labeL>
             Old Password: <br /> <input type="password" name="old_password" />
@@ -25,7 +26,7 @@
             Confirm password: <br /> <input type="password" name="confirm_password" />
         </label>
         <label>
-            E-mail: <br /> <input type="text" name="email" value="<%= @user.email %>" />
+            E-mail: <br /> <input type="text" name="email" value="<%= escape @user.email %>" />
         </label>
         <label>
             Confirm e-mail: <br /> <input type="text" name="confirm_email" />

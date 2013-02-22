@@ -2,16 +2,16 @@
     <h1><%= @user.username %></h1>
     <dl>
         <dt>E-mail:</dt>
-        <dd><%= @user.email %></dd>
+        <dd><%= escape @user.email %></dd>
 
         <dt>Registered:</dt>
         <dd><%= @user.date_registred %></dd>
     </dl>
 </section>
 <section class="admin">
-	<a href="<%= @user.username %>/loans" class="button">loans</a>
-	<a href="<%= @user.username %>/edit" class="button">edit</a>
+	<a href="<%= escape @user.username %>/loans" class="button">loans</a>
+	<a href="<%= escape @user.username %>/edit" class="button">edit</a>
 	<% if admin? %>
-	<a href="<%= @user.username %>/delete" class="button">delete</a>
+	<a href="<%= escape @user.username %>/delete" class="button">delete</a>
 	<% end %>
 </section>

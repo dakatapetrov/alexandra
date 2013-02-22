@@ -2,7 +2,9 @@
 	<h1>books <span class="count">(<%= @books.count %>)</span></h1>
 	<ul>
 		<% @books.each do |book| %>
-			<li><a href="/book/<%= book.library_id %>"><%= book.title%> by <%= book.author %></a></li>
+			<li>
+				<a href="/book/<%= book.library_id %>"><%= escape book.title%> by <%= escape book.author %></a>
+			</li>
 		<% end %>
 	</ul>
 </section>

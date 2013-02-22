@@ -35,7 +35,7 @@ class AlexandraMain < Sinatra::Base
     end
 
     def escape(text)
-      CGI.escapeHTML(text)
+      Rack::Utils.escape_html(text)
     end
 
     def valid_password?(password)

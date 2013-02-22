@@ -22,7 +22,9 @@
 		<h1>results <span class="count">(<%= @catalog.count %>)</span></h1>
 		<ul>
 			<% @catalog.each do |book| %>
-				<li><a href="/book/<%= book.library_id %>"><%= book.title%> by <%= book.author %></a></li>
+				<li>
+					<a href="/book/<%= book.library_id %>"><%= escape book.title%> by <%= escape book.author %></a>
+				</li>
 			<% end %>
 		</ul>
 	</section>

@@ -1,10 +1,10 @@
 <section id="loan">
 	<% book = Alexandra::DB::Book.get @loan.book_id %>
 	<% user = Alexandra::DB::Member.get @loan.member_id %>
-    <h1><%= book.title %></h1>
+    <h1><%= escape book.title %></h1>
     <dl>
         <dt>To user:</dt>
-        <dd><a href="/user/<%= user.username %>"><%= user.username %></a></dd>
+        <dd><a href="/user/<%= escape user.username %>"><%= escape user.username %></a></dd>
     </dl>
     <dl>
         <dt>From Date:</dt>

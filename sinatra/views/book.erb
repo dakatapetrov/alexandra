@@ -1,15 +1,15 @@
 <section id="book">
-	<h1><%= @book.title %></h1>
+	<h1><%= escape @book.title %></h1>
 	<dl>
 		<dt>ID in Library:</dt>
 		<dd><%= @book.library_id %></dd>
 
 		<dt>Author:</dt>
-		<dd><%= @book.author %></dd>
+		<dd><%= escape @book.author %></dd>
 
 		<% if @book.series %>
 			<dt>Series:</dt>
-			<dd><%= @book.series %></dd>
+			<dd><%= escape @book.series %></dd>
 		<% end %>
 
 		<% if @book.series_id %>
@@ -29,7 +29,7 @@
 
 		<% if @book.publisher %>
 			<dt>Publisher:</dt>
-			<dd><%= @book.publisher %></dd>
+			<dd><%= escape @book.publisher %></dd>
 		<% end %>
 
 		<% if @book.page_count %>
@@ -39,12 +39,12 @@
 
 		<% if @book.genre %>
 			<dt>Genre:</dt>
-			<dd><%= @book.genre %></dd>
+			<dd><%= escape @book.genre %></dd>
 		<% end %>
 
 		<% if @book.language %>
 			<dt>Langauge:</dt>
-			<dd><%= @book.language %></dd>
+			<dd><%= escape @book.language %></dd>
 		<% end %>
 
 		<dt>Loanable:</dt>

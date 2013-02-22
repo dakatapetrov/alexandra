@@ -1,6 +1,6 @@
 <section id="delete">
 	<form action="/book/<%= @book.library_id %>/delete" method="post">
-		<h1>Delete book <%= @book.title %>?</h1>
+		<h1>Delete book <%= escape @book.title %>?</h1>
 		<input type="submit" value="delete" />
 		<a href="/book/<%= @book.library_id %>" class="button">cancel</a>
 	</form>

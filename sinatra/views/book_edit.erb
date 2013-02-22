@@ -23,15 +23,15 @@
 			</label>
 			<label>
 				Title: <br />
-				<input type="text" name="title" value="<%= @book.title %>" />
+				<input type="text" name="title" value="<%= escape @book.title %>" />
 			</label>
 			<label>
 				Author: <br />
-				<input type="text" name="author" value="<%= @book.author %>" />
+				<input type="text" name="author" value="<%= escape @book.author %>" />
 			</label>
 			<label>
 				Series: <br />
-				<input type="text" name="series" value="<%= @book.series %>" />
+				<input type="text" name="series" value="<%= escape @book.series %>" />
 			</label>
 			<label>
 				Series ID: <br />
@@ -49,7 +49,7 @@
 			</label>
 			<label>
 				Publisher: <br />
-				<input type="text" name="publisher" value="<%= @book.publisher %>" />
+				<input type="text" name="publisher" value="<%= escape @book.publisher %>" />
 			</label>
 			<label>
 				Page Count: <br />
@@ -57,11 +57,11 @@
 			</label>
 			<label>
 				Genre: <br />
-				<input type="text" name="genre" value="<%= @book.genre %>" />
+				<input type="text" name="genre" value="<%= escape @book.genre %>" />
 			</label>
 			<label>
 				Language: <br />
-				<input type="text" name="language" value="<%= @book.language %>" />
+				<input type="text" name="language" value="<%= escape @book.language %>" />
 			</label>
 			<label>
 				Loan Period: <br />
