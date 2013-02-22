@@ -12,7 +12,7 @@
 		<% if session[:username] %>
 			Hello, <a href='/user/<%= session[:username] %>'><%= session[:username] %></a>! | <a href='/logout'>Logout</a>
 		<% else %>
-			<a href='/login'>Login</a> | <a href='/register'>Signup</a>
+			<a href='/login'>Login</a> | <a href='/register'>Register</a>
 		<% end %>
 	</nav>
 	<header>
