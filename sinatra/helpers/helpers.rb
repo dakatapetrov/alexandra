@@ -1,11 +1,11 @@
 class AlexandraMain < Sinatra::Base
   module Patterns
-    TLD           = /\b[a-z]{2,3}(\.[a-z]{2})?\b/i
-    HOSTNAME_PART = /\b[0-9A-Za-z]([0-9a-z\-]{,61}[0-9A-Za-z])?\b/i
-    HOSTNAME      = /\b(#{HOSTNAME_PART}\.)+#{TLD}\b/i
-    USERNAME      = /\b[a-z0-9][\w_\-+\.]{,200}\b/i
-    EMAIL         = /\b(?<username>#{USERNAME})@(?<hostname>#{HOSTNAME})\b/i
-    PASSWORD      = /\b.{6,}\b/i
+    TLD           = /[a-z]{2,3}(\.[a-z]{2})?/i
+    HOSTNAME_PART = /[0-9A-Za-z]([0-9a-z\-]{,61}[0-9A-Za-z])?/i
+    HOSTNAME      = /(#{HOSTNAME_PART}\.)+#{TLD}/i
+    USERNAME      = /[a-z0-9][\w_\-+\.]{,200}/i
+    EMAIL         = /(?<username>#{USERNAME})@(?<hostname>#{HOSTNAME})/i
+    PASSWORD      = /.{6,}/i
     ISO_DATE      = /(?<year>\d{4})-(?<month>\d\d)-(?<day>\d\d)/
   end
 
