@@ -18,10 +18,8 @@ class AlexandraMain < Sinatra::Base
       erb :book_add, locals: { failure: "A book with the same library id found!"}
     else
       book = Alexandra::DB::Book.new
-
       update_attributes     book, to_update
       update_attributes_int book, to_update_int
-
       book.save
 
       erb :book_add, locals: { success: "Book added successfully!" }
@@ -105,7 +103,6 @@ class AlexandraMain < Sinatra::Base
     else
       update_attributes     @book, to_update
       update_attributes_int @book, to_update_int
-
       @book.save
 
       erb :book_edit, locals: { success: "Book updated successfully" }
@@ -129,9 +126,7 @@ class AlexandraMain < Sinatra::Base
     private!
     if params[:criteria] and params[:by] and params[:method]
       @catalog = Alexandra::Core::Catalog.new Alexandra::DB::Book.all
-
-      @search = params[:criteria].split("+")
-
+      @search  = params[:criteria].split("+")
       criteria = Alexandra::Core::Criteria.method(params[:by].to_sym).call ""
 
       if params[:method] = "and"

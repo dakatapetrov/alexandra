@@ -3,7 +3,8 @@ class AlexandraMain < Sinatra::Base
     user = Alexandra::DB::Member.last username: params[:username] if params[:username]
     if user and user.password == params[:password]
       session[:username] = params[:username]
-      session[:level]     = "user"
+      session[:level]    = "user"
+
       redirect '/book/search'
     else
       erb :user_login, locals: { failure: "Username and/or password incorect!" }
@@ -11,8 +12,9 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/login' do
-    redirect '/book/search' if session[:username]
-    erb :user_login
+    if session[:username] then redirect '/book/search'
+    else erb :user_login
+    end
   end
 
   post '/register' do
@@ -38,6 +40,7 @@ class AlexandraMain < Sinatra::Base
       user = Alexandra::DB::Member.new
       update_attributes user, keys
       user.save
+
       erb :user_register, locals: { succes: "User registration successfull!" }
     end
   end
@@ -48,6 +51,7 @@ class AlexandraMain < Sinatra::Base
 
   get '/logout' do
     session.clear if session[:username]
+
     redirect '/login'
   end
 
@@ -65,6 +69,7 @@ class AlexandraMain < Sinatra::Base
     user_specific! params[:username]
 
     @user = Alexandra::DB::Member.last username: params[:username]
+
     if not @user then not_found
     else erb :user
     end
@@ -75,7 +80,7 @@ class AlexandraMain < Sinatra::Base
 
     keys      = [:email, :old_password]
     to_update = [:email, :password]
-    @user = Alexandra::DB::Member.last username: params[:username]
+    @user     = Alexandra::DB::Member.last username: params[:username]
 
     if keys.any? { |key| params[key].to_s.empty? }
       erb :user_edit, locals: { failure: "All fields required!" }
@@ -94,6 +99,7 @@ class AlexandraMain < Sinatra::Base
     else
       update_attributes @user, to_update
       @user.save
+
       erb :user_edit, locals: { success: "User updated successfully" }
     end
   end
@@ -102,6 +108,7 @@ class AlexandraMain < Sinatra::Base
     user_specific! params[:username]
 
     @user = Alexandra::DB::Member.last username: params[:username]
+
     if not @user then not_found
     else erb :user_edit
     end
@@ -111,6 +118,7 @@ class AlexandraMain < Sinatra::Base
     protected!
 
     Alexandra::DB::Member.last(username: params[:username]).destroy
+
     redirect '/'
   end
 
@@ -132,6 +140,7 @@ class AlexandraMain < Sinatra::Base
     if @user
       @returned   = @user.loans.all(returned: true, order: :date_returned.desc)
       @unreturned = @user.loans.all(returned: false, order: :to_date.asc)
+
       erb :user_loans
     else not_found
     end

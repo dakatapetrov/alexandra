@@ -1,6 +1,7 @@
 class AlexandraMain < Sinatra::Base
   post '/admin/login' do
     admin = Alexandra::DB::Administrator.last username: params[:username] if params[:username]
+
     if admin and admin.password == params[:password]
       session[:username]  = params[:username]
       session[:level]     = "admin"
@@ -11,10 +12,10 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/admin/login' do
-    redirect '/admin/first_use' if first_use?
-
-    redirect '/book/search' if session[:username]
-    erb :admin_login
+    if    first_use?         then redirect '/admin/first_use'
+    elsif session[:username] then redirect '/book/search'
+    else  erb :admin_login
+    end
   end
 
   post '/admin/register' do
@@ -37,14 +38,18 @@ class AlexandraMain < Sinatra::Base
       admin.username = params[:username]
       admin.password = params[:password]
       admin.save
+
       erb :admin_register, locals: { succes: "Administrator registration successfull!" }
     end
   end
 
   get '/admin/register' do
-    redirect '/admin/first_use' if first_use?
-    protected!
-    erb :admin_register
+    if first_use? then redirect '/admin/first_use'
+    else
+      protected!
+
+      erb :admin_register
+    end
   end
 
   post '/admin/first_use' do
@@ -72,11 +77,13 @@ class AlexandraMain < Sinatra::Base
 
   get '/admin/first_use' do
     redirect '/admin/login' unless first_use?
+
     erb :first_use
   end
 
   get '/admin' do
-    redirect '/admin/first_use' if first_use?
-    redirect '/admin/login'
+    if first_use? then redirect '/admin/first_use'
+    else redirect '/admin/login'
+    end
   end
 end

@@ -14,7 +14,7 @@
 	<form action="/book/<%= @book.library_id %>/edit" method="post">
 		<div class="column">
 			<label>
-				ID in library:<br />
+				ID in library*:<br />
 				<input type="text" name="library_id" value="<%= @book.library_id %>" disabled="disabled" />
 			</label>
 			<label>
@@ -22,11 +22,11 @@
 				<input type="text" name="isbn" value="<%= @book.isbn %>" />
 			</label>
 			<label>
-				Title: <br />
+				Title*: <br />
 				<input type="text" name="title" value="<%= escape @book.title %>" />
 			</label>
 			<label>
-				Author: <br />
+				Author*: <br />
 				<input type="text" name="author" value="<%= escape @book.author %>" />
 			</label>
 			<label>
@@ -64,7 +64,7 @@
 				<input type="text" name="language" value="<%= escape @book.language %>" />
 			</label>
 			<label>
-				Loan Period: <br />
+				Loan Period*: <br />
 				<input type="text" name="loan_period" value="<%= @book.loan_period %>" />
 			</label>
 			<label>
