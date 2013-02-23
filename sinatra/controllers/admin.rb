@@ -55,9 +55,9 @@ class AlexandraMain < Sinatra::Base
     if keys.any? { |key| params[key].to_s.empty? }
       erb :first_use, locals: { failure: "All fields required!" }
     elsif not valid_username? params[:username]
-      erb :first_register, locals: { failure: "Ivalid username!" }
+      erb :first_use, locals: { failure: "Ivalid username!" }
     elsif not valid_password? params[:password]
-      erb :first, locals: { failure: "Password too short!"}
+      erb :first_use, locals: { failure: "Password too short!"}
     elsif params[:password] != params[:confirm_password]
       erb :first_use, locals: { failure: "Password did not match!" }
     else
