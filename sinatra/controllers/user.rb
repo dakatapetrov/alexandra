@@ -66,7 +66,7 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/user/:username' do
-    user_specific! params[:username]
+    user_specific params[:username]
 
     @user = Alexandra::DB::Member.last username: params[:username]
 
@@ -76,7 +76,7 @@ class AlexandraMain < Sinatra::Base
   end
 
   post '/user/:username/edit' do
-    user_specific! params[:username]
+    user_specific params[:username]
 
     keys      = [:email, :old_password]
     to_update = [:email, :password]
@@ -105,7 +105,7 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/user/:username/edit' do
-    user_specific! params[:username]
+    user_specific params[:username]
 
     @user = Alexandra::DB::Member.last username: params[:username]
 
@@ -133,7 +133,7 @@ class AlexandraMain < Sinatra::Base
   end
 
   get '/user/:username/loans' do
-    user_specific! params[:username]
+    user_specific params[:username]
 
     @user = Alexandra::DB::Member.last username: params[:username]
 

@@ -3,7 +3,7 @@ class AlexandraMain < Sinatra::Base
     @loan    = Alexandra::DB::Loan.get params[:id].to_i
     username = Alexandra::DB::Member.get(@loan.member_id).username
 
-    user_specific! username
+    user_specific username
 
     if @loan then erb :loan
     else not_found

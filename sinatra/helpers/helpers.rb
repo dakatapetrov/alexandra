@@ -30,7 +30,7 @@ class AlexandraMain < Sinatra::Base
       redirect '/login' unless loggedin?
     end
 
-    def user_specific!(username)
+    def user_specific(username)
       not_found unless session[:username] == username or session[:level] == "admin"
     end
 
