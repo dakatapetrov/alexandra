@@ -13,9 +13,9 @@ class AlexandraMain < Sinatra::Base
     params[:loanable] = params[:loanable].eql? "on"
 
     if keys.any? { |key| params[key].to_s.empty? }
-      erb :add_book, locals: { failure: "Fields marked with * are required!"}
+      erb :book_add, locals: { failure: "Fields marked with * are required!"}
     elsif Alexandra::DB::Book.last library_id: params[:library_id]
-      erb :add_book, locals: { failure: "A book with the same library id found!"}
+      erb :book_add, locals: { failure: "A book with the same library id found!"}
     else
       book = Alexandra::DB::Book.new
 
@@ -24,14 +24,14 @@ class AlexandraMain < Sinatra::Base
 
       book.save
 
-      erb :add_book, locals: { success: "Book added successfully!" }
+      erb :book_add, locals: { success: "Book added successfully!" }
     end
   end
 
   get '/book/add' do
     protected!
 
-    erb :add_book
+    erb :book_add
   end
 
   post '/book/:library_id/delete' do
